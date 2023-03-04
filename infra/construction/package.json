@@ -1,18 +1,12 @@
 {
-  "name": "@review-stadium/review-stadium",
+  "name": "@review-stadium/construction",
   "version": "0.0.0",
   "description": "",
   "main": "index.js",
-  "dependencies": {
-    "typescript": "^4.9.5"
-  },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Takaaki Inoue <takaaki12353491@gmail.com>",
-  "license": "UNLICENSED",
-  "workspaces": [
-    "infra/construction"
-  ]
+  "license": "UNLICENSED"
 }
