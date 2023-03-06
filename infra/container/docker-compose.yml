@@ -1,0 +1,18 @@
+services:
+  user_db:
+    build:
+      context: ./db/user
+      dockerfile: Dockerfile
+    container_name: user_db
+    command: -c 'config_file=/etc/postgresql/postgresql.conf'
+    user: "1000:1000"
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: user
+      TZ: 'Asia/Tokyo'
+    volumes:
+    - ./db/user/data:/var/lib/postgresql/data
+    - ./db/user/postgresql.conf:/etc/postgresql/postgresql.conf
+    - ../database/user.sql:/docker-entrypoint-initdb.d/user.sql
+    ports:
+    - 54320:54320
