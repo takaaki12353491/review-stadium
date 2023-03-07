@@ -13,6 +13,6 @@
   "author": "Takaaki Inoue <takaaki12353491@gmail.com>",
   "license": "UNLICENSED",
   "workspaces": [
-    "infra/construction"
+    "infra"
   ]
 }

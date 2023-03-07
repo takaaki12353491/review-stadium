@@ -14,5 +14,5 @@ class MyStack extends TerraformStack {
 }
 
 const app = new App();
-new MyStack(app, "construction");
+new MyStack(app, "infra");
 app.synth();
