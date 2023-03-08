@@ -1,8 +1,11 @@
 [workspace]
 members = [
     "services/app/*",
+    "common/rust"
 ]
 
 [workspace.dependencies]
 actix-web = "4.3.1"
 ulid = "1.0.0"
+anyhow = "1.0.69"
+thiserror = "1.0.39"
