@@ -1,0 +1,8 @@
+[workspace]
+members = [
+    "services/app/*",
+]
+
+[workspace.dependencies]
+actix-web = "4.3.1"
+ulid = "1.0.0"
