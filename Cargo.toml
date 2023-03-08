@@ -10,3 +10,4 @@ ulid = "1.0.0"
 anyhow = "1.0.69"
 thiserror = "1.0.39"
 validator = "0.16.0"
+common = { path = "common/rust" }
