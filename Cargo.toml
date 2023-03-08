@@ -6,8 +6,9 @@ members = [
 
 [workspace.dependencies]
 actix-web = "4.3.1"
-ulid = "1.0.0"
 anyhow = "1.0.69"
-thiserror = "1.0.39"
-validator = "0.16.0"
+async-trait = "0.1.66" 
 common = { path = "common/rust" }
+thiserror = "1.0.39"
+ulid = "1.0.0"
+validator = "0.16.0"
