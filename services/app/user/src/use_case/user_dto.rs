@@ -1,17 +1,17 @@
 use crate::domain::user::User;
 
-pub struct UserDto {
+pub struct UserDTO {
     pub id: String,
 }
 
-impl UserDto {
+impl UserDTO {
     pub fn new(id: String) -> Self {
         Self { id }
     }
 }
 
-impl From<User> for UserDto {
+impl From<User> for UserDTO {
     fn from(user: User) -> Self {
-        UserDto::new(user.id)
+        UserDTO::new(user.id)
     }
 }
