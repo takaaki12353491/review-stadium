@@ -1,2 +1,2 @@
 pub mod user;
-pub mod user_reposirory;
+pub mod user_repository;
