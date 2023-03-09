@@ -1,9 +1,9 @@
 use ulid::Ulid;
 
 pub struct User {
-    id: String,
-    name: String,
-    email: String,
+    pub id: String,
+    pub name: String,
+    pub email: String,
 }
 
 impl User {
