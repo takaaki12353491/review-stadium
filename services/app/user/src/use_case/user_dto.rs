@@ -12,6 +12,6 @@ impl UserDTO {
 
 impl From<User> for UserDTO {
     fn from(user: User) -> Self {
-        UserDTO::new(user.id)
+        UserDTO::new(user.model.id.into_string())
     }
 }
