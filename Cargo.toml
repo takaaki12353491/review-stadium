@@ -10,6 +10,12 @@ anyhow = "1.0.69"
 async-trait = "0.1.66" 
 common = { path = "common/rust" }
 mockall = "0.11.3"
+sqlx = { version = "0.6.2", features = [
+  "runtime-actix-native-tls",
+  "postgres",
+  "time",
+  "uuid",
+] }
 thiserror = "1.0.39"
 ulid = "1.0.0"
 validator = "0.16.0"
