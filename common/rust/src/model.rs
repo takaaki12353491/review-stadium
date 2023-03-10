@@ -1,4 +1,5 @@
 use ulid::Ulid;
+use validator::Validate;
 
 pub struct ID(String);
 
@@ -16,6 +17,7 @@ impl ID {
     }
 }
 
+#[derive(Validate)]
 pub struct Model {
     pub id: ID,
 }
