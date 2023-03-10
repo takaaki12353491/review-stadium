@@ -1,21 +1,18 @@
 use ulid::Ulid;
 
-pub struct ID {
-    value: String,
-}
+pub struct ID(String);
 
 impl ID {
     pub fn new() -> Self {
-        let value = Ulid::new().to_string();
-        Self { value }
+        Self(Ulid::new().to_string())
     }
 
     pub fn as_str(&self) -> &str {
-        &self.value
+        &self.0
     }
 
     pub fn into_string(self) -> String {
-        self.value
+        self.0
     }
 }
 
