@@ -8,6 +8,8 @@ edition = "2021"
 [dependencies]
 actix-web = { workspace = true }
 anyhow = { workspace = true}
+async-graphql = { workspace = true}
+async-graphql-actix-web = { workspace = true}
 async-trait = { workspace = true}
 common = { workspace = true }
 mockall = { workspace = true }
