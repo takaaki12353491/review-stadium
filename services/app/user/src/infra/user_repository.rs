@@ -17,7 +17,9 @@ struct UserRow {
 impl Into<User> for UserRow {
     fn into(self) -> User {
         User {
-            model: Model { id: self.id },
+            model: Model {
+                id: ID::from(self.id),
+            },
             user_id: self.user_id,
             name: self.name,
             email: self.email,
