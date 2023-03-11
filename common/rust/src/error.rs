@@ -23,6 +23,12 @@ impl From<ValidationErrors> for DomainError {
     }
 }
 
+impl From<sqlx::Error> for DomainError {
+    fn from(error: sqlx::Error) -> Self {
+        DomainError::InfrastructureError(anyhow::Error::new(error))
+    }
+}
+
 #[derive(Debug, Error)]
 pub enum UseCaseError {
     #[error("{0}")]
