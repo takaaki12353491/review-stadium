@@ -1,6 +1,9 @@
 use crate::domain::{user::User, user_repository::UserRepository};
 use async_trait::async_trait;
-use common::{error::DomainError, model::Model, model::ID};
+use common::{
+    error::DomainError,
+    model::{Model, ID},
+};
 use sqlx::{PgConnection, PgPool};
 
 #[derive(sqlx::FromRow)]
