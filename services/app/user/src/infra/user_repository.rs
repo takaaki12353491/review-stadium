@@ -70,6 +70,9 @@ impl InternalUserRepository {
             .fetch_optional(conn)
             .await?;
 
-        row.map(|row| row.into()).transpose()
+        match row {
+            Some(user_row) => Ok(Some(user_row.into())),
+            None => Ok(None),
+        }
     }
 }
