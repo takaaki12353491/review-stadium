@@ -1,10 +1,7 @@
+use super::{user_dto::UserDTO, user_use_case::RegisterUserUseCase};
+use crate::domain::{user::User, user_repository::UserRepository};
 use async_trait::async_trait;
 use common::error::UseCaseError;
-
-use crate::{
-    domain::{user::User, user_repository::UserRepository},
-    use_case::{user_dto::UserDTO, user_use_case::RegisterUserUseCase},
-};
 
 pub struct RegisterUserInteractor<UR> {
     user_repository: UR,

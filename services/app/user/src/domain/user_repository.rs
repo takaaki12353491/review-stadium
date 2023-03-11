@@ -1,8 +1,7 @@
+use super::user::User;
 use async_trait::async_trait;
 use common::{error::DomainError, model::ID};
 use mockall::automock;
-
-use crate::domain::user::User;
 
 #[automock]
 #[async_trait]
