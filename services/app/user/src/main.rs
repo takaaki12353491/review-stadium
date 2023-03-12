@@ -1,3 +1,4 @@
+mod adapter;
 mod domain;
 mod infra;
 mod use_case;
