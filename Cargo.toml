@@ -1,0 +1,23 @@
+[workspace]
+members = [
+    "services/app/*",
+    "common/rust"
+]
+
+[workspace.dependencies]
+actix-web = "4.3.1"
+anyhow = "1.0.69"
+async-graphql = { version = "5.0.6", features = ["dataloader"] }
+async-graphql-actix-web = "5.0.6"
+async-trait = "0.1.66" 
+common = { path = "common/rust" }
+mockall = "0.11.3"
+sqlx = { version = "0.6.2", features = [
+  "runtime-actix-native-tls",
+  "postgres",
+  "time",
+  "uuid",
+] }
+thiserror = "1.0.39"
+ulid = "1.0.0"
+validator = { version = "0.16.0", features = ["derive"] }
