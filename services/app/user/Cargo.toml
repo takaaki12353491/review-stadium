@@ -12,6 +12,9 @@ async-graphql = { workspace = true}
 async-graphql-actix-web = { workspace = true}
 async-trait = { workspace = true}
 common = { workspace = true }
+futures-util = { workspace = true }
 mockall = { workspace = true }
+once_cell = { workspace = true }
+slab = { workspace = true }
 sqlx = { workspace = true }
 ulid = { workspace = true }

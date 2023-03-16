@@ -11,7 +11,10 @@ async-graphql = { version = "5.0.6", features = ["dataloader"] }
 async-graphql-actix-web = "5.0.6"
 async-trait = "0.1.66" 
 common = { path = "common/rust" }
+futures-util = "0.3.27"
 mockall = "0.11.3"
+once_cell = "1.17.1"
+slab = "0.4.8"
 sqlx = { version = "0.6.2", features = [
   "runtime-actix-native-tls",
   "postgres",
