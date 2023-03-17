@@ -24,7 +24,7 @@ where
         name: String,
         email: String,
     ) -> Result<User, UseCaseError> {
-        let user = User::new(user_id, name, email);
+        let user = User::new(user_id, name, email)?;
         self.user_repository.create(&user).await?;
         Ok(user)
     }
