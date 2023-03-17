@@ -1,4 +1,4 @@
-use super::user_dto::UserDTO;
+use crate::domain::user::User;
 use async_trait::async_trait;
 use common::error::UseCaseError;
 
@@ -9,5 +9,5 @@ pub trait RegisterUserUseCase: Send + Sync + 'static {
         user_id: String,
         name: String,
         email: String,
-    ) -> Result<UserDTO, UseCaseError>;
+    ) -> Result<User, UseCaseError>;
 }

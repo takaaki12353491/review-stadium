@@ -23,9 +23,9 @@ where
         user_id: String,
         name: String,
         email: String,
-    ) -> Result<UserDTO, UseCaseError> {
+    ) -> Result<User, UseCaseError> {
         let user = User::new(user_id, name, email);
         self.user_repository.create(&user).await?;
-        Ok(UserDTO::new(user.model.id.into_string()))
+        Ok(user)
     }
 }
