@@ -8,4 +8,5 @@ use mockall::automock;
 pub trait UserRepository: Send + Sync + 'static {
     async fn create(&self, user: &User) -> Result<(), DomainError>;
     async fn find_by_id(&self, id: &ID) -> Result<Option<User>, DomainError>;
+    async fn find_by_user_id(&self, user_id: &String) -> Result<Option<User>, DomainError>;
 }

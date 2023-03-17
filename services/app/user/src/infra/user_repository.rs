@@ -51,6 +51,12 @@ impl UserRepository for PgUserRepository {
         let user = InternalUserRepository::find_by_id(id, &mut conn).await?;
         Ok(user)
     }
+
+    async fn find_by_user_id(&self, user_id: &String) -> Result<Option<User>, DomainError> {
+        let mut conn = self.pool.acquire().await?;
+        let user = InternalUserRepository::find_by_user_id(user_id, &mut conn).await?;
+        Ok(user)
+    }
 }
 
 pub(super) struct InternalUserRepository {}
@@ -67,6 +73,21 @@ impl InternalUserRepository {
     async fn find_by_id(id: &ID, conn: &mut PgConnection) -> Result<Option<User>, DomainError> {
         let row: Option<UserRow> = sqlx::query_as("SELECT * FROM bookshelf_user WHERE id = $1")
             .bind(id.as_str())
+            .fetch_optional(conn)
+            .await?;
+
+        match row {
+            Some(user_row) => Ok(Some(user_row.into())),
+            None => Ok(None),
+        }
+    }
+
+    async fn find_by_user_id(
+        user_id: &String,
+        conn: &mut PgConnection,
+    ) -> Result<Option<User>, DomainError> {
+        let row: Option<UserRow> = sqlx::query_as("SELECT * FROM users WHERE user_id = $1")
+            .bind(user_id)
             .fetch_optional(conn)
             .await?;
 
