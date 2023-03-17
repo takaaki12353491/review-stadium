@@ -1,3 +1,4 @@
+use std::sync::Arc;
 use thiserror::Error;
 use validator::ValidationErrors;
 
@@ -60,6 +61,29 @@ impl From<DomainError> for UseCaseError {
             },
             DomainError::InfrastructureError(_) => UseCaseError::Other(anyhow::Error::new(err)),
             DomainError::Unexpected(message) => UseCaseError::Unexpected(message),
+        }
+    }
+}
+
+#[derive(Debug, Clone, Error)]
+pub enum AdapterError {
+    #[error("{0}")]
+    NotFound(String),
+    #[error("{0}")]
+    Validation(String),
+    #[error(transparent)]
+    OtherError(Arc<anyhow::Error>),
+    #[error("{0}")]
+    Unexpected(String),
+}
+
+impl From<UseCaseError> for AdapterError {
+    fn from(err: UseCaseError) -> Self {
+        match err {
+            UseCaseError::NotFound { .. } => AdapterError::NotFound(err.to_string()),
+            UseCaseError::Validation(_) => AdapterError::Validation(err.to_string()),
+            UseCaseError::Other(_) => AdapterError::OtherError(Arc::new(anyhow::Error::new(err))),
+            UseCaseError::Unexpected(message) => AdapterError::Unexpected(message),
         }
     }
 }
