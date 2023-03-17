@@ -10,4 +10,6 @@ pub trait UserUseCase: Send + Sync + 'static {
         name: String,
         email: String,
     ) -> Result<User, UseCaseError>;
+
+    async fn get_by_user_id(&self, user_id: String) -> Result<Option<User>, UseCaseError>;
 }

@@ -28,4 +28,9 @@ where
         self.user_repository.create(&user).await?;
         Ok(user)
     }
+
+    async fn get_by_user_id(&self, user_id: String) -> Result<Option<User>, UseCaseError> {
+        let user = self.user_repository.find_by_user_id(&user_id).await?;
+        Ok(user)
+    }
 }
