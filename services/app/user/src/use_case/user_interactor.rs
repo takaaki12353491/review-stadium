@@ -1,4 +1,4 @@
-use super::{user_dto::UserDTO, user_use_case::RegisterUserUseCase};
+use super::user_use_case::RegisterUserUseCase;
 use crate::domain::{user::User, user_repository::UserRepository};
 use async_trait::async_trait;
 use common::error::UseCaseError;
