@@ -14,5 +14,14 @@ services:
     - ./db/postgres/data:/var/lib/postgresql/data
     - ./db/postgres/postgresql.conf:/etc/postgresql/postgresql.conf
     - ./db/postgres/entrypoint:/docker-entrypoint-initdb.d
+    networks:
+      local_network:
+        ipv4_address: 192.168.1.100
     ports:
     - 54320:54320
+
+networks:
+  local_network:
+    ipam:
+      config:
+        - subnet: 192.168.1.0/24
