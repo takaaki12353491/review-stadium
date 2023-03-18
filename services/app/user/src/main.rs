@@ -5,57 +5,12 @@ mod use_case;
 
 use actix_web::web::Data;
 use actix_web::{guard, web, App, HttpResponse, HttpServer, Result};
+use adapter::schema::{Mutation, Query};
 use async_graphql::http::{playground_source, GraphQLPlaygroundConfig};
-use async_graphql::{EmptySubscription, Object, Schema, SimpleObject};
-use async_graphql_actix_web::{GraphQLRequest, GraphQLResponse};
-use once_cell::sync::Lazy;
-use std::sync::Mutex;
-
-static SEQUENCE_ID: Lazy<Mutex<usize>> = Lazy::new(|| Mutex::new(0));
-static PHOTOS: Lazy<Mutex<Vec<Photo>>> = Lazy::new(|| Mutex::new(vec![]));
-
-struct Query;
-
-#[Object]
-impl Query {
-    async fn total_photos(&self) -> usize {
-        PHOTOS.lock().unwrap().len()
-    }
-
-    async fn all_photos(&self) -> Vec<Photo> {
-        PHOTOS.lock().unwrap().clone()
-    }
-}
-
-#[derive(SimpleObject, Clone)]
-struct Photo {
-    id: usize,
-    name: String,
-    description: String,
-}
-
-struct Mutation;
-
-#[Object]
-impl Mutation {
-    async fn post_photo(&self, name: String, description: String) -> Photo {
-        let mut id = SEQUENCE_ID.lock().unwrap();
-        *id += 1;
-        let photo = Photo {
-            id: *id,
-            name,
-            description,
-        };
-        PHOTOS.lock().unwrap().push(photo.clone());
-        photo
-    }
-}
-
-type ApiSchema = Schema<Query, Mutation, EmptySubscription>;
-
-async fn index(schema: web::Data<ApiSchema>, req: GraphQLRequest) -> GraphQLResponse {
-    schema.execute(req.into_inner()).await.into()
-}
+use async_graphql::{EmptySubscription, Schema};
+use infra::user_repository::UserRepositoryImpl;
+use sqlx::postgres::PgPoolOptions;
+use use_case::user_interactor::UserInteractor;
 
 async fn index_playground() -> Result<HttpResponse> {
     let source = playground_source(GraphQLPlaygroundConfig::new("/").subscription_endpoint("/"));
@@ -66,14 +21,29 @@ async fn index_playground() -> Result<HttpResponse> {
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    let schema = Schema::build(Query, Mutation, EmptySubscription).finish();
+    let pool = PgPoolOptions::new()
+        .max_connections(5)
+        .connect("TODO")
+        .await
+        .unwrap();
+
+    let user_repository = UserRepositoryImpl::new(pool);
+    let user_usecase = UserInteractor::new(user_repository);
+
+    let query = Query::new(&user_usecase);
+    let mutation = Mutation::new(&user_usecase);
+    let schema = Schema::build(query, mutation, EmptySubscription).finish();
 
     println!("Playground: http://localhost:8000");
 
     HttpServer::new(move || {
         App::new()
             .app_data(Data::new(schema.clone()))
-            .service(web::resource("/").guard(guard::Post()).to(index))
+            .service(
+                web::resource("/")
+                    .guard(guard::Post())
+                    .to(adapter::user_controller::graphql::<UserInteractor<UserRepositoryImpl>>),
+            )
             .service(web::resource("/").guard(guard::Get()).to(index_playground))
     })
     .bind("127.0.0.1:8000")?
