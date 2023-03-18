@@ -7,8 +7,9 @@ services:
     command: -c 'config_file=/etc/postgresql/postgresql.conf'
     user: "1000:1000"
     environment:
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: user
+      POSTGRES_USER: review_stadium
+      POSTGRES_PASSWORD: review_stadium
+      POSTGRES_DB: review_stadium
       TZ: 'Asia/Tokyo'
     volumes:
     - ./db/postgres/data:/var/lib/postgresql/data
