@@ -28,18 +28,18 @@ impl Into<User> for UserRow {
 }
 
 #[derive(Debug, Clone)]
-pub struct PgUserRepository {
+pub struct UserRepositoryImpl {
     pool: PgPool,
 }
 
-impl PgUserRepository {
+impl UserRepositoryImpl {
     pub fn new(pool: PgPool) -> Self {
         Self { pool }
     }
 }
 
 #[async_trait]
-impl UserRepository for PgUserRepository {
+impl UserRepository for UserRepositoryImpl {
     async fn create(&self, user: &User) -> Result<(), DomainError> {
         let mut conn = self.pool.acquire().await?;
         let result = InternalUserRepository::create(user, &mut conn).await?;
@@ -60,7 +60,7 @@ impl UserRepository for PgUserRepository {
 }
 
 /// [Humble Object](https://martinfowler.com/bliki/HumbleObject.html)
-pub(super) struct InternalUserRepository {}
+pub(super) struct InternalUserRepository;
 
 impl InternalUserRepository {
     pub(super) async fn create(user: &User, conn: &mut PgConnection) -> Result<(), DomainError> {
