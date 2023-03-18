@@ -1,4 +1,5 @@
 mod adapter;
+mod config;
 mod domain;
 mod infra;
 mod use_case;
@@ -8,6 +9,8 @@ use actix_web::{guard, web, App, HttpResponse, HttpServer, Result};
 use adapter::schema::{Mutation, Query};
 use async_graphql::http::{playground_source, GraphQLPlaygroundConfig};
 use async_graphql::{EmptySubscription, Schema};
+use config::DB_CONFIG;
+use dotenv::dotenv;
 use infra::user_repository::UserRepositoryImpl;
 use sqlx::postgres::PgPoolOptions;
 use use_case::user_interactor::UserInteractor;
@@ -21,9 +24,13 @@ async fn index_playground() -> Result<HttpResponse> {
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    dotenv().ok();
+
+    let db_url = DB_CONFIG.url();
+
     let pool = PgPoolOptions::new()
         .max_connections(5)
-        .connect("TODO")
+        .connect(&db_url)
         .await
         .unwrap();
 
@@ -34,7 +41,7 @@ async fn main() -> std::io::Result<()> {
     let mutation = Mutation::new(user_usecase);
     let schema = Schema::build(query, mutation, EmptySubscription).finish();
 
-    println!("Playground: http://localhost:8000");
+    println!("Playground: http://localhost:8080");
 
     HttpServer::new(move || {
         App::new()
@@ -46,7 +53,7 @@ async fn main() -> std::io::Result<()> {
             )
             .service(web::resource("/").guard(guard::Get()).to(index_playground))
     })
-    .bind("127.0.0.1:8000")?
+    .bind("127.0.0.1:8080")?
     .run()
     .await
 }
