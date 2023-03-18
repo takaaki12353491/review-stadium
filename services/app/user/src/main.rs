@@ -10,7 +10,6 @@ use adapter::schema::{Mutation, Query};
 use async_graphql::http::{playground_source, GraphQLPlaygroundConfig};
 use async_graphql::{EmptySubscription, Schema};
 use config::DB_CONFIG;
-use dotenv::dotenv;
 use infra::user_repository::UserRepositoryImpl;
 use sqlx::postgres::PgPoolOptions;
 use use_case::user_interactor::UserInteractor;
@@ -24,7 +23,7 @@ async fn index_playground() -> Result<HttpResponse> {
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    dotenv().ok();
+    dotenv::from_path("../../.env").unwrap();
 
     let db_url = DB_CONFIG.url();
 

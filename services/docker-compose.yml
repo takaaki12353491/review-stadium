@@ -6,10 +6,12 @@ services:
     container_name: postgres
     command: -c 'config_file=/etc/postgresql/postgresql.conf'
     user: "1000:1000"
+    env_file:
+      - ./.env
     environment:
-      POSTGRES_USER: review_stadium
-      POSTGRES_PASSWORD: review_stadium
-      POSTGRES_DB: review_stadium
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
       TZ: 'Asia/Tokyo'
     volumes:
     - ./db/postgres/data:/var/lib/postgresql/data
