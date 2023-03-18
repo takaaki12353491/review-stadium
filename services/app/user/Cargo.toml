@@ -13,7 +13,9 @@ async-graphql-actix-web = { workspace = true}
 async-trait = { workspace = true}
 common = { workspace = true }
 dotenv = { workspace = true }
+env_logger = { workspace = true }
 futures-util = { workspace = true }
+log = { workspace = true }
 mockall = { workspace = true }
 once_cell = { workspace = true }
 slab = { workspace = true }
