@@ -63,15 +63,18 @@ pub(super) struct InternalUserRepository {}
 
 impl InternalUserRepository {
     pub(super) async fn create(user: &User, conn: &mut PgConnection) -> Result<(), DomainError> {
-        sqlx::query("INSERT INTO bookshelf_user (id) VALUES ($1)")
+        sqlx::query("INSERT INTO users (id, user_id, name, email) VALUES ($1, $2, $3, $4)")
             .bind(user.model.id.as_str())
+            .bind(&user.user_id)
+            .bind(&user.name)
+            .bind(&user.email)
             .execute(conn)
             .await?;
         Ok(())
     }
 
     async fn find_by_id(id: &ID, conn: &mut PgConnection) -> Result<Option<User>, DomainError> {
-        let row: Option<UserRow> = sqlx::query_as("SELECT * FROM bookshelf_user WHERE id = $1")
+        let row: Option<UserRow> = sqlx::query_as("SELECT * FROM users WHERE id = $1")
             .bind(id.as_str())
             .fetch_optional(conn)
             .await?;
