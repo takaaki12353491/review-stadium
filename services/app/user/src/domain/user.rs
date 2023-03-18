@@ -103,4 +103,25 @@ mod tests {
                 && matches!(over_name, Err(DomainError::Validation(_)))
         );
     }
+
+    // emailは必須ではない。RFC5322に従っている。
+    #[test]
+    fn test_email() {
+        let no_email = User::new(String::from("user_id"), String::from("name"), "a".repeat(0));
+        let invalid_email = User::new(
+            String::from("user_id"),
+            String::from("name"),
+            String::from("example.com"),
+        );
+        let valid_email = User::new(
+            String::from("user_id"),
+            String::from("name"),
+            String::from("sample@example.com"),
+        );
+        assert!(
+            matches!(no_email, Ok(_))
+                && matches!(invalid_email, Err(DomainError::Validation(_)))
+                && matches!(valid_email, Ok(_))
+        );
+    }
 }
