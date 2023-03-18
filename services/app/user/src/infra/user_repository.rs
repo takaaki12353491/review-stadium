@@ -59,6 +59,7 @@ impl UserRepository for PgUserRepository {
     }
 }
 
+/// [Humble Object](https://martinfowler.com/bliki/HumbleObject.html)
 pub(super) struct InternalUserRepository {}
 
 impl InternalUserRepository {
