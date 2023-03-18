@@ -3,6 +3,7 @@ use async_trait::async_trait;
 use common::{
     error::DomainError,
     model::{Model, ID},
+    string::StringExt,
 };
 use sqlx::{PgConnection, PgPool};
 
@@ -22,7 +23,7 @@ impl Into<User> for UserRow {
             },
             user_id: self.user_id,
             name: self.name,
-            email: self.email,
+            email: self.email.to_option(),
         }
     }
 }

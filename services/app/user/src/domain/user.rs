@@ -9,7 +9,7 @@ pub struct User {
     #[validate(length(min = 1, max = 255))]
     pub name: String,
     #[validate(email)]
-    pub email: String,
+    pub email: Option<String>,
 }
 
 impl User {
@@ -18,7 +18,7 @@ impl User {
             model: Model::new(),
             user_id,
             name,
-            email,
+            email: if email.is_empty() { None } else { Some(email) },
         };
         user.validate()?;
         Ok(user)
