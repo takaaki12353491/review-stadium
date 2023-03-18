@@ -5,12 +5,13 @@ mod infra;
 mod use_case;
 
 use actix_web::web::Data;
-use actix_web::{guard, web, App, HttpResponse, HttpServer, Result};
+use actix_web::{guard, middleware::Logger, web, App, HttpResponse, HttpServer, Result};
 use adapter::schema::{Mutation, Query};
 use async_graphql::http::{playground_source, GraphQLPlaygroundConfig};
 use async_graphql::{EmptySubscription, Schema};
 use config::DB_CONFIG;
 use infra::user_repository::UserRepositoryImpl;
+use log::*;
 use sqlx::postgres::PgPoolOptions;
 use use_case::user_interactor::UserInteractor;
 
@@ -25,8 +26,9 @@ async fn index_playground() -> Result<HttpResponse> {
 async fn main() -> std::io::Result<()> {
     dotenv::from_path("../../.env").unwrap();
 
-    let db_url = DB_CONFIG.url();
+    env_logger::init();
 
+    let db_url = DB_CONFIG.url();
     let pool = PgPoolOptions::new()
         .max_connections(5)
         .connect(&db_url)
@@ -40,11 +42,12 @@ async fn main() -> std::io::Result<()> {
     let mutation = Mutation::new(user_usecase);
     let schema = Schema::build(query, mutation, EmptySubscription).finish();
 
-    println!("Playground: http://localhost:8080");
+    info!("Playground: http://localhost:8080");
 
     HttpServer::new(move || {
         App::new()
             .app_data(Data::new(schema.clone()))
+            .wrap(Logger::default())
             .service(
                 web::resource("/")
                     .guard(guard::Post())
