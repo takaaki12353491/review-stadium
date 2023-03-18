@@ -30,8 +30,8 @@ async fn main() -> std::io::Result<()> {
     let user_repository = UserRepositoryImpl::new(pool);
     let user_usecase = UserInteractor::new(user_repository);
 
-    let query = Query::new(&user_usecase);
-    let mutation = Mutation::new(&user_usecase);
+    let query = Query::new(user_usecase.clone());
+    let mutation = Mutation::new(user_usecase);
     let schema = Schema::build(query, mutation, EmptySubscription).finish();
 
     println!("Playground: http://localhost:8000");

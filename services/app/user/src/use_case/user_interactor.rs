@@ -3,6 +3,7 @@ use crate::domain::{user::User, user_repository::UserRepository};
 use async_trait::async_trait;
 use common::error::UseCaseError;
 
+#[derive(Debug, Clone)]
 pub struct UserInteractor<UR> {
     user_repository: UR,
 }
