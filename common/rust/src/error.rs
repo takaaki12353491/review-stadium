@@ -13,7 +13,7 @@ pub enum DomainError {
         user_id: String,
     },
     #[error(transparent)]
-    InfrastructureError(anyhow::Error),
+    RepositoryError(anyhow::Error),
     #[error("{0}")]
     Unexpected(String),
 }
@@ -26,7 +26,7 @@ impl From<ValidationErrors> for DomainError {
 
 impl From<sqlx::Error> for DomainError {
     fn from(error: sqlx::Error) -> Self {
-        DomainError::InfrastructureError(anyhow::Error::new(error))
+        DomainError::RepositoryError(anyhow::Error::new(error))
     }
 }
 
@@ -59,7 +59,7 @@ impl From<DomainError> for UseCaseError {
                 entity_id,
                 user_id,
             },
-            DomainError::InfrastructureError(_) => UseCaseError::Other(anyhow::Error::new(err)),
+            DomainError::RepositoryError(_) => UseCaseError::Other(anyhow::Error::new(err)),
             DomainError::Unexpected(message) => UseCaseError::Unexpected(message),
         }
     }
