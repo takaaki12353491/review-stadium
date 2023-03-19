@@ -6,13 +6,16 @@ services:
     container_name: postgres
     command: -c 'config_file=/etc/postgresql/postgresql.conf'
     user: "1000:1000"
+    env_file:
+      - ./.env
     environment:
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: user
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
       TZ: 'Asia/Tokyo'
     volumes:
     - ./db/postgres/data:/var/lib/postgresql/data
-    - ./db/postgres/postgresql.conf:/etc/postgresql/postgresql.conf
+    - ./db/postgres/conf:/etc/postgresql
     - ./db/postgres/entrypoint:/docker-entrypoint-initdb.d
     ports:
-    - 54320:54320
+    - 54320:5432
