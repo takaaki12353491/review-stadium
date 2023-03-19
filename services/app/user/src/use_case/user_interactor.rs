@@ -42,7 +42,7 @@ mod tests {
     use crate::domain::user_repository::MockUserRepository;
     use anyhow::Error;
     use common::error::DomainError;
-    use mockall::predicate::always;
+    use mockall::predicate::{always, eq};
 
     #[tokio::test]
     async fn test_register_success() {
@@ -82,6 +82,65 @@ mod tests {
                 String::from("sample@example.com"),
             )
             .await;
+
+        assert!(res.is_err());
+    }
+
+    #[tokio::test]
+    async fn test_get_by_user_id_success() {
+        let user_id = String::from("user_id");
+        let user = User::new(
+            user_id.clone(),
+            String::from("name"),
+            String::from("sample@example.com"),
+        )
+        .unwrap();
+        let saved_user = user.clone();
+
+        let mut mock_user_repository = MockUserRepository::new();
+        mock_user_repository
+            .expect_find_by_user_id()
+            .times(1)
+            .with(eq(user_id.clone()))
+            .returning(move |_| Ok(Some(saved_user.clone())));
+
+        let user_usecase = UserInteractor::new(mock_user_repository);
+        let res = user_usecase.get_by_user_id(user_id).await;
+
+        assert_eq!(res.unwrap(), Some(user));
+    }
+
+    #[tokio::test]
+    async fn test_get_by_user_id_not_found() {
+        let user_id = String::from("user_id");
+
+        let mut mock_user_repository = MockUserRepository::new();
+        mock_user_repository
+            .expect_find_by_user_id()
+            .times(1)
+            .with(eq(user_id.clone()))
+            .returning(|_| Ok(None));
+
+        let user_usecase = UserInteractor::new(mock_user_repository);
+        let res = user_usecase.get_by_user_id(user_id).await;
+
+        assert!(res.is_ok());
+        assert_eq!(res.unwrap(), None);
+    }
+
+    #[tokio::test]
+    async fn test_get_by_user_id_failed() {
+        let user_id = String::from("user_id");
+
+        let mut mock_user_repository = MockUserRepository::new();
+        mock_user_repository
+            .expect_find_by_user_id()
+            .times(1)
+            .with(eq(user_id.clone()))
+            .returning(|_| Err(DomainError::RepositoryError(Error::msg("Database Error"))));
+
+        let user_usecase = UserInteractor::new(mock_user_repository);
+        let res = user_usecase.get_by_user_id(user_id).await;
 
         assert!(res.is_err());
     }

@@ -1,7 +1,7 @@
 use common::{error::DomainError, model::Model, string::StringExt};
 use validator::Validate;
 
-#[derive(Debug, Validate)]
+#[derive(Debug, Validate, Clone, PartialEq)]
 pub struct User {
     pub model: Model,
     #[validate(length(min = 1, max = 20))]
