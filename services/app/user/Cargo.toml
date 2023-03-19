@@ -20,5 +20,6 @@ mockall = { workspace = true }
 once_cell = { workspace = true }
 slab = { workspace = true }
 sqlx = { workspace = true }
+tokio = { workspace = true }
 ulid = { workspace = true }
 validator = { workspace = true }
