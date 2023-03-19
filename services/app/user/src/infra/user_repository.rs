@@ -102,3 +102,8 @@ impl InternalUserRepository {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    // TODO: InternalUserRepositoryのテスト
+}
