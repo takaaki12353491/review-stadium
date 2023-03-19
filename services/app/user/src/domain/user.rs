@@ -1,4 +1,4 @@
-use common::{error::DomainError, model::Model};
+use common::{error::DomainError, model::Model, string::StringExt};
 use validator::Validate;
 
 #[derive(Debug, Validate)]
@@ -18,7 +18,7 @@ impl User {
             model: Model::new(),
             user_id,
             name,
-            email: if email.is_empty() { None } else { Some(email) },
+            email: email.to_option(),
         };
         user.validate()?;
         Ok(user)
