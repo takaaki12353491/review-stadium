@@ -28,49 +28,54 @@ impl User {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use common::error::DomainError;
+
+    impl Default for User {
+        fn default() -> Self {
+            Self {
+                model: Model::new(),
+                user_id: "user_id".to_string(),
+                name: "name".to_string(),
+                email: Some("sample@example.com".to_string()),
+            }
+        }
+    }
+
+    impl Into<Result<Self, DomainError>> for User {
+        fn into(self) -> Result<Self, DomainError> {
+            self.validate()?;
+            Ok(self)
+        }
+    }
+
+    impl User {
+        fn from_user_id_length(len: usize) -> Result<Self, DomainError> {
+            User {
+                user_id: "a".repeat(len),
+                ..User::default()
+            }
+            .into()
+        }
+    }
 
     #[test]
     fn test_valid_user() {
-        assert!(matches!(
-            User::new(
-                String::from("user_id"),
-                String::from("name"),
-                String::from("sample@example.com")
-            ),
-            Ok(_)
-        ));
+        assert!(matches!(User::default().into(), Ok(_)));
     }
 
     // user_idは必須で１〜２０文字
     #[test]
     fn test_user_id() {
-        let no_user_id = User::new(
-            "a".repeat(0),
-            String::from("name"),
-            String::from("sample@example.com"),
+        let is_valid_0 = matches!(
+            User::from_user_id_length(0),
+            Err(DomainError::Validation(_))
         );
-        let min_user_id = User::new(
-            "a".repeat(1),
-            String::from("name"),
-            String::from("sample@example.com"),
+        let is_valid_1 = matches!(User::from_user_id_length(1), Ok(_));
+        let is_valid_20 = matches!(User::from_user_id_length(20), Ok(_));
+        let is_valid_21 = matches!(
+            User::from_user_id_length(21),
+            Err(DomainError::Validation(_))
         );
-        let max_user_id = User::new(
-            "a".repeat(20),
-            String::from("name"),
-            String::from("sample@example.com"),
-        );
-        let over_user_id = User::new(
-            "a".repeat(21),
-            String::from("name"),
-            String::from("sample@example.com"),
-        );
-        assert!(
-            matches!(no_user_id, Err(DomainError::Validation(_)))
-                && matches!(min_user_id, Ok(_))
-                && matches!(max_user_id, Ok(_))
-                && matches!(over_user_id, Err(DomainError::Validation(_)))
-        );
+        assert!(is_valid_0 && is_valid_1 && is_valid_20 && is_valid_21);
     }
 
     // nameは必須で１〜２55文字
@@ -83,7 +88,7 @@ mod tests {
         );
         let min_name = User::new(
             String::from("user_id"),
-            "a".repeat(1),
+            "a".to_string(),
             String::from("sample@example.com"),
         );
         let max_name = User::new(
