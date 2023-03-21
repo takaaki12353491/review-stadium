@@ -15,15 +15,15 @@ struct UserRow {
     email: String,
 }
 
-impl Into<User> for UserRow {
-    fn into(self) -> User {
+impl From<UserRow> for User {
+    fn from(row: UserRow) -> Self {
         User {
             model: Model {
-                id: ID::from(self.id),
+                id: ID::from(row.id),
             },
-            user_id: self.user_id,
-            name: self.name,
-            email: self.email.to_option(),
+            user_id: row.user_id,
+            name: row.name,
+            email: row.email.to_option(),
         }
     }
 }
