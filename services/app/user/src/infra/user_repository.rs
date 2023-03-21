@@ -53,7 +53,7 @@ impl UserRepository for UserRepositoryImpl {
         Ok(user)
     }
 
-    async fn find_by_user_id(&self, user_id: &String) -> Result<Option<User>, DomainError> {
+    async fn find_by_user_id(&self, user_id: &str) -> Result<Option<User>, DomainError> {
         let mut conn = self.pool.acquire().await?;
         let user = InternalUserRepository::find_by_user_id(user_id, &mut conn).await?;
         Ok(user)
@@ -88,7 +88,7 @@ impl InternalUserRepository {
     }
 
     async fn find_by_user_id(
-        user_id: &String,
+        user_id: &str,
         conn: &mut PgConnection,
     ) -> Result<Option<User>, DomainError> {
         let row: Option<UserRow> = sqlx::query_as("SELECT * FROM users WHERE user_id = $1")
