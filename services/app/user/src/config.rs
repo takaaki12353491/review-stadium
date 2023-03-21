@@ -30,13 +30,13 @@ impl DBConfig {
 
 pub static DB_CONFIG: Lazy<DBConfig> = Lazy::new(|| DBConfig {
     postgres_host: env::var(POSTGRES_HOST)
-        .expect(format!("{} must be set", POSTGRES_HOST).as_str()),
+        .unwrap_or_else(|_| panic!("{} must be set", POSTGRES_HOST)),
     postgres_port: env::var(POSTGRES_PORT)
-        .expect(format!("{} must be set", POSTGRES_PORT).as_str()),
+        .unwrap_or_else(|_| panic!("{} must be set", POSTGRES_PORT)),
     postgres_user: env::var(POSTGRES_USER)
-        .expect(format!("{} must be set", POSTGRES_USER).as_str()),
+        .unwrap_or_else(|_| panic!("{} must be set", POSTGRES_USER)),
     postgres_password: env::var(POSTGRES_PASSWORD)
-        .expect(format!("{} must be set", POSTGRES_PASSWORD).as_str()),
+        .unwrap_or_else(|_| panic!("{} must be set", POSTGRES_PASSWORD)),
     postgres_database: env::var(POSTGRES_DB)
-        .expect(format!("{} must be set", POSTGRES_DB).as_str()),
+        .unwrap_or_else(|_| panic!("{} must be set", POSTGRES_DB)),
 });

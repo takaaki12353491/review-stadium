@@ -1,7 +1,7 @@
 use ulid::Ulid;
 use validator::Validate;
 
-#[derive(Debug, Clone, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, PartialEq, Eq, Validate, Default)]
 pub struct ID {
     #[validate(length(min = 1))]
     value: String,
@@ -29,7 +29,7 @@ impl From<String> for ID {
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Eq, Validate)]
+#[derive(Debug, Clone, PartialEq, Eq, Validate, Default)]
 pub struct Model {
     pub id: ID,
 }

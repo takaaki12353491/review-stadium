@@ -15,15 +15,15 @@ struct UserRow {
     email: String,
 }
 
-impl Into<User> for UserRow {
-    fn into(self) -> User {
+impl From<UserRow> for User {
+    fn from(row: UserRow) -> Self {
         User {
             model: Model {
-                id: ID::from(self.id),
+                id: ID::from(row.id),
             },
-            user_id: self.user_id,
-            name: self.name,
-            email: self.email.to_option(),
+            user_id: row.user_id,
+            name: row.name,
+            email: row.email.to_option(),
         }
     }
 }
@@ -53,7 +53,7 @@ impl UserRepository for UserRepositoryImpl {
         Ok(user)
     }
 
-    async fn find_by_user_id(&self, user_id: &String) -> Result<Option<User>, DomainError> {
+    async fn find_by_user_id(&self, user_id: &str) -> Result<Option<User>, DomainError> {
         let mut conn = self.pool.acquire().await?;
         let user = InternalUserRepository::find_by_user_id(user_id, &mut conn).await?;
         Ok(user)
@@ -88,7 +88,7 @@ impl InternalUserRepository {
     }
 
     async fn find_by_user_id(
-        user_id: &String,
+        user_id: &str,
         conn: &mut PgConnection,
     ) -> Result<Option<User>, DomainError> {
         let row: Option<UserRow> = sqlx::query_as("SELECT * FROM users WHERE user_id = $1")

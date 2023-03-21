@@ -17,7 +17,7 @@ impl From<User> for UserObject {
             id: user.model.id.into_string(),
             user_id: user.user_id,
             name: user.name,
-            email: user.email.unwrap_or_else(|| "".to_string()),
+            email: user.email.unwrap_or_default(),
         }
     }
 }
