@@ -40,10 +40,10 @@ mod tests {
         }
     }
 
-    impl Into<Result<Self, DomainError>> for User {
-        fn into(self) -> Result<Self, DomainError> {
-            self.validate()?;
-            Ok(self)
+    impl From<User> for Result<User, DomainError> {
+        fn from(user: User) -> Self {
+            user.validate()?;
+            Ok(user)
         }
     }
 
