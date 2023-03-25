@@ -16,8 +16,7 @@
     "@review-stadium/eslint-config": "workspace:^",
     "@review-stadium/prettier-config": "workspace:^",
     "@review-stadium/stylelint-config": "workspace:^",
-    "@review-stadium/tsconfig": "workspace:^",
-    "postcss-lit": "^1.1.0"
+    "@review-stadium/tsconfig": "workspace:^"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
