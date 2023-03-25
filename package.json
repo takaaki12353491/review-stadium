@@ -16,7 +16,8 @@
     "@review-stadium/eslint-config": "workspace:^",
     "@review-stadium/prettier-config": "workspace:^",
     "@review-stadium/stylelint-config": "workspace:^",
-    "@review-stadium/tsconfig": "workspace:^"
+    "@review-stadium/tsconfig": "workspace:^",
+    "sass": "^1.60.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
