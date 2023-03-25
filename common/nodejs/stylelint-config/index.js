@@ -5,8 +5,5 @@ module.exports = {
   ],
   plugins: [
     "stylelint-order"
-  ],
-  rules: {
-    'at-rule-no-unknown': null,
-  }
+  ]
 }

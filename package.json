@@ -17,13 +17,7 @@
   "devDependencies": {
     "eslint-config-prettier": "^8.8.0",
     "postcss-lit": "^1.1.0",
-    "prettier": "^2.8.7",
-    "stylelint": "^15.3.0",
-    "stylelint-config-recess-order": "^4.0.0",
-    "stylelint-config-standard": "^31.0.0",
-    "stylelint-config-standard-scss": "^7.0.1",
-    "stylelint-order": "^6.0.3",
-    "stylelint-prettier": "^3.0.0"
+    "prettier": "^2.8.7"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -36,6 +30,7 @@
   "license": "UNLICENSED",
   "workspaces": [
     "infra",
-    "front/web"
+    "front/web",
+    "common/nodejs/*"
   ]
 }
