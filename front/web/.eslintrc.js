@@ -1,6 +1,6 @@
 module.exports = {
   extends: [
-    "../../.eslintrc.js",
+    "@review-stadium/eslint-config",
     "next/core-web-vitals"
   ]
 }

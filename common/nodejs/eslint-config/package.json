@@ -1,0 +1,16 @@
+{
+  "name": "@review-stadium/eslint-config",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "devDependencies": {
+    "eslint": "8.36.0",
+    "eslint-config-next": "13.2.4",
+    "eslint-config-prettier": "^8.8.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Takaaki Inoue <takaaki12353491@gmail.com>",
+  "license": "UNLICENSED"
+}
