@@ -6,7 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "eslint": "next lint",
+    "eslint:fix": "next lint --fix",
+    "stylelint": "stylelint \"src/**/*.{css,scss}\"",
+    "stylelint:fix": "stylelint --fix \"src/**/*.{css,scss}\"",
+    "prettier": "prettier \"./src/**/*.{ts,tsx}\"",
+    "prettier:fix": "prettier --write \"./src/**/*.{ts,tsx}\"",
+    "format": "npm run eslint:fix && npm run stylelint:fix && npm run prettier:fix"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",
