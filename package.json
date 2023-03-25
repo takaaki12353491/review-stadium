@@ -24,7 +24,7 @@
     "web:dev": "npm run dev -w @review-stadium/web",
     "web:build": "npm run build -w @review-stadium/web",
     "web:start": "npm run start -w @review-stadium/web",
-    "web:lint": "npm run lint -w @review-stadium/web"
+    "web:format": "npm run format -w @review-stadium/web"
   },
   "author": "Takaaki Inoue <takaaki12353491@gmail.com>",
   "license": "UNLICENSED",
