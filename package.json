@@ -14,6 +14,7 @@
   },
   "devDependencies": {
     "@review-stadium/eslint-config": "workspace:^",
+    "@review-stadium/prettier": "workspace:^",
     "@review-stadium/stylelint-config": "workspace:^",
     "@review-stadium/tsconfig": "workspace:^",
     "postcss-lit": "^1.1.0",
