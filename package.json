@@ -17,8 +17,7 @@
     "@review-stadium/prettier-config": "workspace:^",
     "@review-stadium/stylelint-config": "workspace:^",
     "@review-stadium/tsconfig": "workspace:^",
-    "postcss-lit": "^1.1.0",
-    "prettier": "^2.8.7"
+    "postcss-lit": "^1.1.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
