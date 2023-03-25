@@ -13,9 +13,6 @@
     "postcss": "^8.4.21",
     "tailwindcss": "^3.2.7"
   },
-  "stylelintConfig": {
-    "extends": "../../.stylelintrc.js"
-  },
   "author": "Takaaki Inoue <takaaki12353491@gmail.com>",
   "license": "UNLICENSED"
 }
