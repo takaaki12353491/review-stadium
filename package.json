@@ -15,6 +15,8 @@
     "typescript": "5.0.2"
   },
   "devDependencies": {
+    "@review-stadium/tsconfig": "workspace:^",
+    "@review-stadium/stylelint-config": "workspace:^",
     "eslint-config-prettier": "^8.8.0",
     "postcss-lit": "^1.1.0",
     "prettier": "^2.8.7"
