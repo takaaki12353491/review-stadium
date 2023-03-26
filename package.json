@@ -30,7 +30,7 @@
   "license": "UNLICENSED",
   "workspaces": [
     "infra",
-    "front/web",
+    "front/*",
     "common/nodejs/*"
   ]
 }
