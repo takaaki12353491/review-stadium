@@ -8,7 +8,7 @@ const config = {
     "@storybook/addon-links",
     "@storybook/addon-essentials",
     "@storybook/addon-interactions",
-    "storybook-addon-next-router",
+    // "storybook-addon-next-router",
     "@storybook/addon-a11y",
     {
       name: "@storybook/addon-postcss",
