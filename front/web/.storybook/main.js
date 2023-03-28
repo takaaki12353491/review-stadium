@@ -30,6 +30,23 @@ const config = {
   staticDirs: ["../public"],
   webpackFinal: async (config) => {
     config.resolve.alias["@"] = rootPath;
+    config.module.rules.push({
+      test: /\.scss$/,
+      use: [
+        "style-loader",
+        {
+          loader: "css-loader",
+          options: {
+            modules: {
+              auto: true, // *.module.scssファイル全てを対象
+            },
+            url: false, // cssのbackgroundで設定した画像へのパスがプロジェクトルートからの絶対パスになるように設定
+          },
+        },
+        "sass-loader",
+      ],
+      include: path.resolve(__dirname, "../app/"),
+    });
     return config;
   },
 };
