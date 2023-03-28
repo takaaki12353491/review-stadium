@@ -15,7 +15,8 @@
     "prettier:fix": "prettier --write \"./src/**/*.{ts,tsx}\"",
     "format": "npm run eslint:fix && npm run stylelint:fix && npm run prettier:fix",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "template": "hygen"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.20.2",
