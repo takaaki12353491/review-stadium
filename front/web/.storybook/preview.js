@@ -1,3 +1,5 @@
+import { RouterContext } from "next/dist/shared/lib/router-context";
+
 /** @type { import('@storybook/react').Preview } */
 const preview = {
   parameters: {
@@ -7,6 +9,9 @@ const preview = {
         color: /(background|color)$/i,
         date: /Date$/,
       },
+    },
+    nextRouter: {
+      Provider: RouterContext.Provider,
     },
   },
 };
