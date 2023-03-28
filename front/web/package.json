@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "jest",
+    "test": "jest --passWithNoTests",
     "eslint": "next lint",
     "eslint:fix": "next lint --fix",
     "stylelint": "stylelint \"src/**/*.{css,scss}\"",
