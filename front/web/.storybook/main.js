@@ -1,5 +1,3 @@
-import "../app/styles/globals.scss";
-
 const path = require("path");
 const rootPath = path.resolve(__dirname, "../app/");
 

@@ -1,4 +1,5 @@
 import { RouterContext } from "next/dist/shared/lib/router-context";
+import "../app/styles/globals.scss";
 
 /** @type { import('@storybook/react').Preview } */
 const preview = {
