@@ -1,4 +1,5 @@
 import "./styles/globals.scss";
+import Provider from "./Provider";
 
 export const metadata = {
   title: "Create Next App",
@@ -11,8 +12,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="ja">
+      <head />
+      <body>
+        <Provider>{children}</Provider>
+      </body>
     </html>
   );
 }
