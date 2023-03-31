@@ -1,5 +1,8 @@
 import "./styles/globals.scss";
 import Provider from "./Provider";
+import { Container } from "@/app/components/chakra-ui";
+import Header from "./Header";
+import Footer from "./Footer";
 
 export const metadata = {
   title: "Create Next App",
@@ -15,7 +18,18 @@ export default function RootLayout({
     <html lang="ja">
       <head />
       <body>
-        <Provider>{children}</Provider>
+        <Provider>
+          <Header />
+          <Container
+            as="main"
+            maxW="container.lg"
+            my="4"
+            minH="calc(100vh - 115px - 2rem)"
+          >
+            {children}
+          </Container>
+          <Footer />
+        </Provider>
       </body>
     </html>
   );
