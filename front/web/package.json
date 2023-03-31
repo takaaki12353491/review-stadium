@@ -2,21 +2,9 @@
   "name": "@review-stadium/web",
   "version": "0.0.0",
   "description": "",
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "test": "jest --passWithNoTests",
-    "eslint": "next lint",
-    "eslint:fix": "next lint --fix",
-    "stylelint": "stylelint \"src/**/*.{css,scss}\"",
-    "stylelint:fix": "stylelint --fix \"src/**/*.{css,scss}\"",
-    "prettier": "prettier \"./src/**/*.{ts,tsx}\"",
-    "prettier:fix": "prettier --write \"./src/**/*.{ts,tsx}\"",
-    "format": "npm run eslint:fix && npm run stylelint:fix && npm run prettier:fix",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
-    "template": "hygen"
+  "dependencies": {
+    "@aws-amplify/ui-react": "^4.4.3",
+    "aws-amplify": "^5.0.23"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.20.2",
@@ -41,6 +29,22 @@
     "storybook": "^7.0.0-rc.8",
     "storybook-addon-next-router": "^4.0.2",
     "tailwindcss": "^3.2.7"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "test": "jest --passWithNoTests",
+    "eslint": "next lint",
+    "eslint:fix": "next lint --fix",
+    "stylelint": "stylelint \"src/**/*.{css,scss}\"",
+    "stylelint:fix": "stylelint --fix \"src/**/*.{css,scss}\"",
+    "prettier": "prettier \"./src/**/*.{ts,tsx}\"",
+    "prettier:fix": "prettier --write \"./src/**/*.{ts,tsx}\"",
+    "format": "npm run eslint:fix && npm run stylelint:fix && npm run prettier:fix",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "template": "hygen"
   },
   "author": "Takaaki Inoue <takaaki12353491@gmail.com>",
   "license": "UNLICENSED"
