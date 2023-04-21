@@ -10,6 +10,14 @@
       "StackName": "amplify-web-dev-221245",
       "StackId": "arn:aws:cloudformation:ap-northeast-1:401313964068:stack/amplify-web-dev-221245/0b0c3990-df7d-11ed-9644-06e1d17df02f",
       "AmplifyAppId": "d285v1wtitevpz"
+    },
+    "categories": {
+      "auth": {
+        "webbbdfe1c1": {}
+      },
+      "api": {
+        "web": {}
+      }
     }
   }
 }
