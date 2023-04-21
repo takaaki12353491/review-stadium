@@ -1,8 +1,16 @@
-import Image from "next/image";
-import { Inter } from "next/font/google";
+"use client";
 
-const inter = Inter({ subsets: ["latin"] });
+import { Authenticator } from "@aws-amplify/ui-react";
 
 export default function Home() {
-  return <main></main>;
+  return (
+    <Authenticator>
+      {({ signOut, user }) => (
+        <main className="">
+          <h1>Hello {user?.username}</h1>
+          <button onClick={signOut}>Sign out</button>
+        </main>
+      )}
+    </Authenticator>
+  );
 }
