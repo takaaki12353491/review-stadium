@@ -4,9 +4,6 @@
 #   globalAuthRule: AuthRule = { allow: public }
 # } # FOR TESTING ONLY!
 
-type Query {
-  listPosts: [Post]
-}
 type Post
   @model(
     mutations: {
