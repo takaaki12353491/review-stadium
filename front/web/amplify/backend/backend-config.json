@@ -1,15 +1,23 @@
 {
   "api": {
     "web": {
-      "dependsOn": [],
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "web45397168"
+        }
+      ],
       "output": {
         "authConfig": {
           "additionalAuthenticationProviders": [],
           "defaultAuthentication": {
-            "apiKeyConfig": {
-              "apiKeyExpirationDays": 7
-            },
-            "authenticationType": "API_KEY"
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authweb45397168"
+            }
           }
         }
       },
