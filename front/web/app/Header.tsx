@@ -25,12 +25,12 @@ export default function Header() {
             fontWeight={600}
             color="white"
             bg="orange.400"
-            href="/articles/new"
+            href="/auth"
             _hover={{
               bg: "orange.300",
             }}
           >
-            記事を書く
+            ログイン
           </Button>
         </Flex>
       </Flex>
