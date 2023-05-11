@@ -18,6 +18,7 @@
     "typescript": "4.9.5"
   },
   "devDependencies": {
+    "@chakra-ui/cli": "^2.4.1",
     "@review-stadium/eslint-config": "workspace:^",
     "@review-stadium/jest-config": "workspace:^",
     "@review-stadium/prettier-config": "workspace:^",

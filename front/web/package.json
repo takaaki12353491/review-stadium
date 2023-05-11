@@ -44,6 +44,8 @@
     "format": "npm run eslint:fix && npm run stylelint:fix && npm run prettier:fix",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
+    "theme": "chakra-cli tokens app/styles/theme.ts",
+    "theme:watch": "chakra-cli tokens app/styles/theme.ts --watch",
     "template": "hygen"
   },
   "author": "Takaaki Inoue <takaaki12353491@gmail.com>",
