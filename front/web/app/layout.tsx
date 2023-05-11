@@ -25,14 +25,14 @@ export default function RootLayout({
       <body>
         <Provider>
           <Header />
-          <Box as="main" bg="bg.primary" overflow="hidden">
+          <Box as={"main"} bg={"bg.primary"} overflow={"hidden"}>
             <Container
-              as="div"
-              bg="white"
-              my="4"
-              py="4"
-              maxW="container.lg"
-              minH="calc(100vh - 115px - 2rem)"
+              as={"div"}
+              bg={"white"}
+              my={"4"}
+              py={"4"}
+              maxW={"container.lg"}
+              minH={"calc(100vh - 115px - 2rem)"}
             >
               {children}
             </Container>
