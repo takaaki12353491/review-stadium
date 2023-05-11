@@ -3,7 +3,7 @@ import NextLink from "next/link";
 
 export default function Header() {
   return (
-    <Box as="header">
+    <Box as="header" position="sticky" top={0} zIndex={1000} boxShadow={"lg"}>
       <Flex
         bg="white"
         color="gray.600"
