@@ -1,7 +1,7 @@
 import "./styles/globals.scss";
 import "@aws-amplify/ui-react/styles.css";
 import Provider from "./Provider";
-import { Container } from "@/app/components/chakra-ui";
+import { Container, Box } from "@/app/components/chakra-ui";
 import Header from "./Header";
 import Footer from "./Footer";
 import { Amplify } from "aws-amplify";
@@ -25,14 +25,18 @@ export default function RootLayout({
       <body>
         <Provider>
           <Header />
-          <Container
-            as="main"
-            maxW="container.lg"
-            my="4"
-            minH="calc(100vh - 115px - 2rem)"
-          >
-            {children}
-          </Container>
+          <Box as="main" bg="bg.primary" overflow="hidden">
+            <Container
+              as="div"
+              bg="white"
+              my="4"
+              py="4"
+              maxW="container.lg"
+              minH="calc(100vh - 115px - 2rem)"
+            >
+              {children}
+            </Container>
+          </Box>
           <Footer />
         </Provider>
       </body>
