@@ -1,0 +1,14 @@
+{
+  "name": "@review-stadium/prettier-config",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "devDependencies": {
+    "prettier": "^2.8.7"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Takaaki Inoue <takaaki12353491@gmail.com>",
+  "license": "UNLICENSED"
+}

@@ -4,15 +4,48 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "typescript": "^4.9.5"
+    "@chakra-ui/icons": "^2.0.17",
+    "@chakra-ui/react": "^2.5.4",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@types/node": "18.15.5",
+    "@types/react": "18.0.28",
+    "@types/react-dom": "18.0.11",
+    "framer-motion": "^10.10.0",
+    "next": "^13.4.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "typescript": "4.9.5",
+    "zustand": "^4.3.8"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@chakra-ui/cli": "^2.4.1",
+    "@review-stadium/eslint-config": "workspace:^",
+    "@review-stadium/jest-config": "workspace:^",
+    "@review-stadium/prettier-config": "workspace:^",
+    "@review-stadium/stylelint-config": "workspace:^",
+    "@review-stadium/tsconfig": "workspace:^",
+    "css-loader": "^6.7.3",
+    "hygen": "^6.2.11",
+    "sass": "^1.60.0",
+    "sass-loader": "^13.2.2",
+    "style-loader": "^3.3.2"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "web:dev": "npm run dev -w @review-stadium/web",
+    "web:build": "npm run build -w @review-stadium/web",
+    "web:start": "npm run start -w @review-stadium/web",
+    "web:format": "npm run format -w @review-stadium/web"
   },
   "author": "Takaaki Inoue <takaaki12353491@gmail.com>",
   "license": "UNLICENSED",
   "workspaces": [
-    "infra"
-  ]
+    "infra",
+    "front/*",
+    "common/nodejs/*"
+  ],
+  "engines": {
+    "node": "18.15.0"
+  }
 }
