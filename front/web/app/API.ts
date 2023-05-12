@@ -3,20 +3,18 @@
 //  This file was automatically generated and should not be edited.
 
 export type CreatePostInput = {
-  id?: string | null,
   type: string,
+  id?: string | null,
   content: string,
   owner?: string | null,
-  createdAt: number,
-  updatedAt?: number | null,
+  timestamp: number,
 };
 
 export type ModelPostConditionInput = {
   type?: ModelStringInput | null,
   content?: ModelStringInput | null,
   owner?: ModelStringInput | null,
-  createdAt?: ModelIntInput | null,
-  updatedAt?: ModelIntInput | null,
+  timestamp?: ModelIntInput | null,
   and?: Array< ModelPostConditionInput | null > | null,
   or?: Array< ModelPostConditionInput | null > | null,
   not?: ModelPostConditionInput | null,
@@ -76,21 +74,11 @@ export type ModelIntInput = {
 
 export type Post = {
   __typename: "Post",
-  id?: string | null,
   type: string,
+  id?: string | null,
   content: string,
   owner?: string | null,
-  createdAt: number,
-  updatedAt?: number | null,
-};
-
-export type UpdatePostInput = {
-  id: string,
-  type?: string | null,
-  content?: string | null,
-  owner?: string | null,
-  createdAt?: number | null,
-  updatedAt?: number | null,
+  timestamp: number,
 };
 
 export type DeletePostInput = {
@@ -98,12 +86,11 @@ export type DeletePostInput = {
 };
 
 export type ModelPostFilterInput = {
-  id?: ModelIDInput | null,
   type?: ModelStringInput | null,
+  id?: ModelIDInput | null,
   content?: ModelStringInput | null,
   owner?: ModelStringInput | null,
-  createdAt?: ModelIntInput | null,
-  updatedAt?: ModelIntInput | null,
+  timestamp?: ModelIntInput | null,
   and?: Array< ModelPostFilterInput | null > | null,
   or?: Array< ModelPostFilterInput | null > | null,
   not?: ModelPostFilterInput | null,
@@ -132,16 +119,15 @@ export type ModelPostConnection = {
 };
 
 export type ModelSubscriptionPostFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
   type?: ModelSubscriptionStringInput | null,
+  id?: ModelSubscriptionIDInput | null,
   content?: ModelSubscriptionStringInput | null,
-  createdAt?: ModelSubscriptionIntInput | null,
-  updatedAt?: ModelSubscriptionIntInput | null,
+  timestamp?: ModelSubscriptionIntInput | null,
   and?: Array< ModelSubscriptionPostFilterInput | null > | null,
   or?: Array< ModelSubscriptionPostFilterInput | null > | null,
 };
 
-export type ModelSubscriptionIDInput = {
+export type ModelSubscriptionStringInput = {
   ne?: string | null,
   eq?: string | null,
   le?: string | null,
@@ -156,7 +142,7 @@ export type ModelSubscriptionIDInput = {
   notIn?: Array< string | null > | null,
 };
 
-export type ModelSubscriptionStringInput = {
+export type ModelSubscriptionIDInput = {
   ne?: string | null,
   eq?: string | null,
   le?: string | null,
@@ -191,29 +177,11 @@ export type CreatePostMutationVariables = {
 export type CreatePostMutation = {
   createPost?:  {
     __typename: "Post",
-    id?: string | null,
     type: string,
+    id?: string | null,
     content: string,
     owner?: string | null,
-    createdAt: number,
-    updatedAt?: number | null,
-  } | null,
-};
-
-export type UpdatePostMutationVariables = {
-  input: UpdatePostInput,
-  condition?: ModelPostConditionInput | null,
-};
-
-export type UpdatePostMutation = {
-  updatePost?:  {
-    __typename: "Post",
-    id?: string | null,
-    type: string,
-    content: string,
-    owner?: string | null,
-    createdAt: number,
-    updatedAt?: number | null,
+    timestamp: number,
   } | null,
 };
 
@@ -225,12 +193,11 @@ export type DeletePostMutationVariables = {
 export type DeletePostMutation = {
   deletePost?:  {
     __typename: "Post",
-    id?: string | null,
     type: string,
+    id?: string | null,
     content: string,
     owner?: string | null,
-    createdAt: number,
-    updatedAt?: number | null,
+    timestamp: number,
   } | null,
 };
 
@@ -241,12 +208,11 @@ export type GetPostQueryVariables = {
 export type GetPostQuery = {
   getPost?:  {
     __typename: "Post",
-    id?: string | null,
     type: string,
+    id?: string | null,
     content: string,
     owner?: string | null,
-    createdAt: number,
-    updatedAt?: number | null,
+    timestamp: number,
   } | null,
 };
 
@@ -261,12 +227,11 @@ export type ListPostsQuery = {
     __typename: "ModelPostConnection",
     items:  Array< {
       __typename: "Post",
-      id?: string | null,
       type: string,
+      id?: string | null,
       content: string,
       owner?: string | null,
-      createdAt: number,
-      updatedAt?: number | null,
+      timestamp: number,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -279,28 +244,11 @@ export type OnCreatePostSubscriptionVariables = {
 export type OnCreatePostSubscription = {
   onCreatePost?:  {
     __typename: "Post",
-    id?: string | null,
     type: string,
+    id?: string | null,
     content: string,
     owner?: string | null,
-    createdAt: number,
-    updatedAt?: number | null,
-  } | null,
-};
-
-export type OnUpdatePostSubscriptionVariables = {
-  filter?: ModelSubscriptionPostFilterInput | null,
-};
-
-export type OnUpdatePostSubscription = {
-  onUpdatePost?:  {
-    __typename: "Post",
-    id?: string | null,
-    type: string,
-    content: string,
-    owner?: string | null,
-    createdAt: number,
-    updatedAt?: number | null,
+    timestamp: number,
   } | null,
 };
 
@@ -311,11 +259,10 @@ export type OnDeletePostSubscriptionVariables = {
 export type OnDeletePostSubscription = {
   onDeletePost?:  {
     __typename: "Post",
-    id?: string | null,
     type: string,
+    id?: string | null,
     content: string,
     owner?: string | null,
-    createdAt: number,
-    updatedAt?: number | null,
+    timestamp: number,
   } | null,
 };
