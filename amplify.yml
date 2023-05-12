@@ -1,0 +1,24 @@
+version: 1
+applications:
+  - appRoot: front/web
+    backend:
+      phases:
+        build:
+          commands:
+            - '# Execute Amplify CLI with the helper script'
+            - amplifyPush --simple
+    frontend:
+      phases:
+        preBuild:
+          commands:
+            - npm ci --prefix front/web
+        build:
+          commands:
+            - npm run build --workspace=@review-stadium/web
+      artifacts:
+        baseDirectory: front/web/.next
+        files:
+          - '**/*'
+      cache:
+        paths:
+          - front/web/node_modules/**/*
