@@ -46,6 +46,7 @@
     "common/nodejs/*"
   ],
   "engines": {
-    "node": "18.15.0"
+    "node": "18.15.0",
+    "npm": "9.5.1"
   }
 }
