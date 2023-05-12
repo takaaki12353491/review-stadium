@@ -44,5 +44,8 @@
     "infra",
     "front/*",
     "common/nodejs/*"
-  ]
+  ],
+  "engines": {
+    "node": "18.15.0"
+  }
 }
