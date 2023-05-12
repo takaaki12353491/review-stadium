@@ -11,7 +11,7 @@ applications:
       phases:
         preBuild:
           commands:
-            - npm ci --prefix front/web
+            - npm ci
         build:
           commands:
             - npm run build --workspace=@review-stadium/web
