@@ -11,10 +11,10 @@ applications:
       phases:
         preBuild:
           commands:
-            - pnpm install --frozen-lockfile
+            - npm ci
         build:
           commands:
-            - pnpm --filter @review-stadium/web build
+            - npm run build --workspace=@review-stadium/web
       artifacts:
         baseDirectory: front/web/.next
         files:
