@@ -1,5 +1,4 @@
 {
-  "extends": "../../node_modules/@tsconfig/next/tsconfig.json",
   "compilerOptions": {
     "target": "es2015",
     "lib": ["dom", "dom.iterable", "esnext"],
