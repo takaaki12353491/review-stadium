@@ -1,4 +1,0 @@
-packages:
-  - "front/*"
-  - "common/nodejs/*"
-  - "infra"
