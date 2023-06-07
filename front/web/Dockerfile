@@ -1,31 +1,29 @@
-FROM node:16
-
-# Set the working directory in the container to /app
+# ---- Base Node ----
+FROM node:16 AS base
 WORKDIR /app
 
-# Install pnpm globally in the image
+# Install pnpm
 RUN npm install -g pnpm@8.5
 
-# Copy the root directory's package.json, pnpm-lock.yaml and pnpm-workspace.yaml to utilize Docker cache
+# ---- Dependencies ----
+FROM base AS dependencies
 COPY .npmrc ./package.json ./pnpm-lock.yaml ./pnpm-workspace.yaml ./
-
-# Copy the common/nodejs directory
 COPY ./common/nodejs ./common/nodejs
-
-# Copy the front/web directory
 COPY ./front/web ./front/web
+RUN pnpm install --frozen-lockfile --prod
 
-# Install the project dependencies
-RUN pnpm install --frozen-lockfile
-
-# Change working directory to front/web
+# ---- Build ----
+FROM dependencies AS build
 WORKDIR /app/front/web
-
-# Build the application
 RUN pnpm build
 
-# Expose port 3000 in the container
-EXPOSE 3000
+# ---- Release ----
+FROM base AS release
+WORKDIR /app/front/web
 
-# Define the command that should be executed when the container starts
+# Copy from build image
+COPY --from=build /app /app
+
+# Expose port and define CMD
+EXPOSE 3000
 CMD ["pnpm", "start"]
