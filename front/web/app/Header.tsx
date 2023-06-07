@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Button } from "@/app/components/chakra-ui";
+import { Box, Flex, Heading, Button } from "@/app/_components/chakra-ui";
 import NextLink from "next/link";
 
 export default function Header() {
