@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: ./front/web/Dockerfile
+    container_name: rs-web
+    volumes:
+      - ./.npmrc:/app/.npmrc
+      - ./package.json:/app/package.json
+      - ./pnpm-lock.yaml:/app/pnpm-lock.yaml
+      - ./pnpm-workspace.yaml:/app/pnpm-workspace.yaml
+      - ./common/nodejs:/app/common/nodejs
+      - ./front/web:/app/front/web
+    ports:
+      - 3000:3000
+    restart: always
+    tty: true
