@@ -3,13 +3,13 @@ name: Web Check
 on:
   push:
     paths:
-      - "front/app/user/**"
-      - .github/workflows/frontend-web-ci.yml
+      - "front/web/**"
+      - .github/workflows/front-web-ci.yml
   pull_request:
     branches:
       - main
     paths:
-      - "front/app/user/**"
+      - "front/web/**"
 
 jobs:
   check:
