@@ -3,8 +3,9 @@ name: Web Check
 on:
   push:
     paths:
+      - ".github/workflows/front-web-ci.yml"
+      - "pnpm-lock.yaml"
       - "front/web/**"
-      - .github/workflows/front-web-ci.yml
 
 jobs:
   check:
