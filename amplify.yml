@@ -17,7 +17,7 @@ applications:
           commands:
             - pnpm build
       artifacts:
-        baseDirectory: front/web/.next
+        baseDirectory: .next
         files:
           - '**/*'
       cache:
