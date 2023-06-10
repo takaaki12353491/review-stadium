@@ -1,7 +1,13 @@
 version: 1
 applications:
-  - appRoot: .  # プロジェクトのルートに設定します
+  - appRoot: front/web
     backend:
+      phases:
+        build:
+          commands:
+            - '# Execute Amplify CLI with the helper script'
+            - amplifyPush --simple
+    frontend:
       phases:
         preBuild:
           commands:
@@ -9,10 +15,6 @@ applications:
             - pnpm i --frozen-lockfile
         build:
           commands:
-            - cd front/web  # amplifyPushとビルドを実行する前に適切なディレクトリに移動します
-            - '# Execute Amplify CLI with the helper script'
-            - amplifyPush --simple
-            - pnpm i
             - pnpm build
       artifacts:
         baseDirectory: front/web/.next
