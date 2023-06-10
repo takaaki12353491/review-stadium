@@ -46,5 +46,6 @@ jobs:
       - name: Unit test
         run: pnpm --filter @review-stadium/web test
 
-      - name: Build all projects
-        run: pnpm --filter @review-stadium/web build
+      # Amplifyを利用するためコメントアウト
+      #- name: Build all projects
+      #  run: pnpm --filter @review-stadium/web build
