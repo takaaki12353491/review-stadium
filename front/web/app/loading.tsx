@@ -1,4 +1,4 @@
-import { Spinner, Flex } from "@/app/components/chakra-ui";
+import { Spinner, Flex } from "@/app/_components/chakra-ui";
 
 export default function Loading() {
   return (

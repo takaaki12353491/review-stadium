@@ -1,4 +1,4 @@
-import { Container, Box, Text } from "@/app/components/chakra-ui";
+import { Container, Box, Text } from "@/app/_components/chakra-ui";
 
 export default function Footer() {
   return (
