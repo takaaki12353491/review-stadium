@@ -2,10 +2,7 @@
   "name": "@review-stadium/web",
   "version": "0.0.0",
   "description": "",
-  "dependencies": {
-    "@aws-amplify/ui-react": "^4.4.3",
-    "aws-amplify": "^5.0.23"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@babel/preset-env": "^7.20.2",
     "@babel/preset-react": "^7.18.6",
