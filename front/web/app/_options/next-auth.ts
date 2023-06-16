@@ -11,7 +11,6 @@ export const options: NextAuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
     CredentialsProvider({
-      name: "Sign in",
       credentials: {
         email: {
           label: "Email",
@@ -54,29 +53,17 @@ export const options: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    jwt: async ({ token, user, account, profile }) => {
-      // 注意: トークンをログ出力してはダメです。
-      console.log("in jwt", { user, account, profile });
-
-      if (user) {
-        token.user = user;
-        const u = user as any;
-        token.role = u.role;
-      }
+    jwt: async ({ token, account, profile }) => {
       if (account) {
         token.accessToken = account.access_token;
+        token.id = profile?.id;
       }
       return token;
     },
     session: async ({ session, token }) => {
-      console.log("in session", { session, token });
-      return {
-        ...session,
-        user: {
-          ...session.user,
-          accessToken: token.accessToken,
-        },
-      };
+      session.user.accessToken = token.accessToken;
+      session.user.id = token.id;
+      return session;
     },
   },
 };
