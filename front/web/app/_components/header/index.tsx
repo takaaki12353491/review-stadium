@@ -10,8 +10,9 @@ import {
   useDisclosure,
   useColorModeValue,
   Stack,
+  HamburgerIcon,
+  CloseIcon,
 } from "@/app/_components/chakra-ui";
-import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import AuthArea from "./AuthArea";
 import NextLink from "next/link";
 
