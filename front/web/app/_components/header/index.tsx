@@ -45,7 +45,7 @@ export default function Header() {
       boxShadow={"lg"}
       px={4}
     >
-      <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
+      <Flex h={16} alignItems={"center"} justifyContent={"space-around"}>
         <IconButton
           size={"md"}
           icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
