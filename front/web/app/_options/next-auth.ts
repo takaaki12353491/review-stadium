@@ -16,16 +16,27 @@ export const options: NextAuthOptions = {
         email: {
           label: "Email",
           type: "email",
-          placeholder: "example@example.com",
+          placeholder: "user@example.com",
         },
-        password: { label: "Password", type: "password" },
+        password: {
+          label: "Password",
+          type: "password",
+          placeholder: "password",
+        },
       },
       // メルアド認証処理
       async authorize(credentials) {
         const users = [
-          { id: "1", email: "user1@example.com", password: "password1" },
-          { id: "2", email: "user2@example.com", password: "password2" },
-          { id: "3", email: "abc@abc", password: "123" },
+          {
+            id: "1",
+            email: "admin@example.com",
+            password: "password",
+          },
+          {
+            id: "2",
+            email: "user@example.com",
+            password: "password",
+          },
         ];
 
         const user = users.find((user) => user.email === credentials?.email);
@@ -35,7 +46,6 @@ export const options: NextAuthOptions = {
             id: user.id,
             name: user.email,
             email: user.email,
-            role: "admin",
           };
         } else {
           return null;
@@ -58,14 +68,13 @@ export const options: NextAuthOptions = {
       }
       return token;
     },
-    session: ({ session, token }) => {
+    session: async ({ session, token }) => {
       console.log("in session", { session, token });
-      token.accessToken;
       return {
         ...session,
         user: {
           ...session.user,
-          role: token.role,
+          accessToken: token.accessToken,
         },
       };
     },
