@@ -54,18 +54,21 @@ function AuthenticatedArea({ image }: { image?: string }) {
 export default function AuthArea() {
   const { data: session, status } = useSession();
 
-  if (status === "loading") return null;
+  let content;
+  if (status === "loading") {
+    content = null;
+  } else {
+    const user = session?.user;
+    content = user ? (
+      <AuthenticatedArea image={user.image || undefined} />
+    ) : (
+      <UnauthenticatedArea />
+    );
+  }
 
-  const user = session?.user;
-
-  // Render buttons based on authentication status
   return (
-    <Flex alignItems={"center"}>
-      {user ? (
-        <AuthenticatedArea image={user.image || undefined} />
-      ) : (
-        <UnauthenticatedArea />
-      )}
+    <Flex w={4} alignItems={"center"}>
+      {content}
     </Flex>
   );
 }
