@@ -10,47 +10,6 @@ export const options: NextAuthOptions = {
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
-    CredentialsProvider({
-      credentials: {
-        email: {
-          label: "Email",
-          type: "email",
-          placeholder: "user@example.com",
-        },
-        password: {
-          label: "Password",
-          type: "password",
-          placeholder: "password",
-        },
-      },
-      // メルアド認証処理
-      async authorize(credentials) {
-        const users = [
-          {
-            id: "1",
-            email: "admin@example.com",
-            password: "password",
-          },
-          {
-            id: "2",
-            email: "user@example.com",
-            password: "password",
-          },
-        ];
-
-        const user = users.find((user) => user.email === credentials?.email);
-
-        if (user && user?.password === credentials?.password) {
-          return {
-            id: user.id,
-            name: user.email,
-            email: user.email,
-          };
-        } else {
-          return null;
-        }
-      },
-    }),
   ],
   callbacks: {
     jwt: async ({ token, account, profile }) => {
