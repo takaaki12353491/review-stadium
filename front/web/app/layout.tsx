@@ -1,7 +1,7 @@
 import "./_styles/globals.scss";
 import Provider from "./Provider";
 import { Container, Box } from "@/app/_components/chakra-ui";
-import Header from "./Header";
+import Header from "@/app/_components/header";
 import Footer from "./Footer";
 
 export const metadata = {
