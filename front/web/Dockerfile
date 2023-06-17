@@ -1,5 +1,5 @@
 # ---- Base Node ----
-FROM node:16 AS base
+FROM node:18-alpine AS base
 WORKDIR /app
 
 # Install pnpm
