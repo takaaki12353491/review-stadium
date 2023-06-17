@@ -10,6 +10,7 @@ import {
   MenuItem,
   MenuDivider,
 } from "@chakra-ui/react";
+import NextLink from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 
 const UnauthenticatedArea = () => {
@@ -42,8 +43,9 @@ function AuthenticatedArea({ image }: { image?: string }) {
         <Avatar size={"sm"} src={image} />
       </MenuButton>
       <MenuList>
-        <MenuItem>Link 1</MenuItem>
-        <MenuItem>Link 2</MenuItem>
+        <MenuItem as={NextLink} href={"/settings"}>
+          設定
+        </MenuItem>
         <MenuDivider />
         <MenuItem onClick={() => signOut()}>ログアウト</MenuItem>
       </MenuList>
