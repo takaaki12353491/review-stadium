@@ -31,7 +31,7 @@ const UnauthenticatedArea = () => {
 
 function AuthenticatedArea({ image }: { image?: string }) {
   return (
-    <Menu>
+    <Menu placement="bottom-end">
       <MenuButton
         as={Button}
         rounded={"full"}
@@ -67,7 +67,7 @@ export default function AuthArea() {
   }
 
   return (
-    <Flex w={4} alignItems={"center"}>
+    <Flex w={20} alignItems={"center"}>
       {content}
     </Flex>
   );
