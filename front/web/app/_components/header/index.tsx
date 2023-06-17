@@ -44,6 +44,7 @@ export default function Header() {
       zIndex={1000}
       boxShadow={"lg"}
       px={4}
+      bg={useColorModeValue("white", "gray.800")}
     >
       <Flex h={16} alignItems={"center"} justifyContent={"space-around"}>
         <IconButton
