@@ -20,7 +20,8 @@
     "template": "hygen",
     "test": "jest --env=jsdom --verbose --passWithNoTests",
     "theme": "chakra-cli tokens app/styles/theme.ts",
-    "theme:watch": "chakra-cli tokens app/styles/theme.ts --watch"
+    "theme:watch": "chakra-cli tokens app/styles/theme.ts --watch",
+    "codegen": "graphql-codegen --config codegen.ts"
   },
   "dependencies": {},
   "devDependencies": {}
