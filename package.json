@@ -1,9 +1,23 @@
 {
   "name": "@review-stadium/review-stadium",
   "version": "0.0.0",
-  "description": "",
-  "main": "index.js",
   "private": true,
+  "description": "",
+  "license": "UNLICENSED",
+  "author": "Takaaki Inoue <takaaki12353491@gmail.com>",
+  "main": "index.js",
+  "workspaces": [
+    "infra",
+    "front/*",
+    "common/nodejs/*"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "web:build": "npm run build -w @review-stadium/web",
+    "web:dev": "npm run dev -w @review-stadium/web",
+    "web:format": "npm run format -w @review-stadium/web",
+    "web:start": "npm run start -w @review-stadium/web"
+  },
   "dependencies": {
     "@apollo/client": "^3.7.16",
     "@apollo/react-hooks": "^4.0.0",
@@ -43,25 +57,11 @@
     "style-loader": "^3.3.2",
     "stylelint": "^15.3.0"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "web:dev": "npm run dev -w @review-stadium/web",
-    "web:build": "npm run build -w @review-stadium/web",
-    "web:start": "npm run start -w @review-stadium/web",
-    "web:format": "npm run format -w @review-stadium/web"
-  },
-  "author": "Takaaki Inoue <takaaki12353491@gmail.com>",
-  "license": "UNLICENSED",
-  "workspaces": [
-    "infra",
-    "front/*",
-    "common/nodejs/*"
-  ],
   "packageManager": "pnpm@8.5.0",
   "engines": {
     "node": ">=16.20.0",
-    "pnpm": ">=8.5.0",
     "npm": "use pnpm please!",
+    "pnpm": ">=8.5.0",
     "yarn": "use pnpm please!"
   }
 }

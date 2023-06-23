@@ -2,6 +2,26 @@
   "name": "@review-stadium/web",
   "version": "0.0.0",
   "description": "",
+  "license": "UNLICENSED",
+  "author": "Takaaki Inoue <takaaki12353491@gmail.com>",
+  "scripts": {
+    "build": "next build",
+    "build-storybook": "storybook build",
+    "dev": "next dev",
+    "fix": "npm run eslint:fix && npm run stylelint:fix && npm run prettier:fix",
+    "format": "prettier \"./app/**/*.{ts,tsx}\"",
+    "format:fix": "prettier --write \"./app/**/*.{ts,tsx}\"",
+    "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "start": "next start",
+    "storybook": "storybook dev -p 6006",
+    "style": "stylelint \"app/**/*.{css,scss}\"",
+    "style:fix": "stylelint --fix \"app/**/*.{css,scss}\"",
+    "template": "hygen",
+    "test": "jest --passWithNoTests",
+    "theme": "chakra-cli tokens app/styles/theme.ts",
+    "theme:watch": "chakra-cli tokens app/styles/theme.ts --watch"
+  },
   "dependencies": {},
   "devDependencies": {
     "@babel/preset-env": "^7.20.2",
@@ -24,25 +44,5 @@
     "react-dom": "^18.2.0",
     "storybook": "^7.0.0-rc.8",
     "storybook-addon-next-router": "^4.0.2"
-  },
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "test": "jest --passWithNoTests",
-    "lint": "next lint",
-    "lint:fix": "next lint --fix",
-    "style": "stylelint \"app/**/*.{css,scss}\"",
-    "style:fix": "stylelint --fix \"app/**/*.{css,scss}\"",
-    "format": "prettier \"./app/**/*.{ts,tsx}\"",
-    "format:fix": "prettier --write \"./app/**/*.{ts,tsx}\"",
-    "fix": "npm run eslint:fix && npm run stylelint:fix && npm run prettier:fix",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
-    "theme": "chakra-cli tokens app/styles/theme.ts",
-    "theme:watch": "chakra-cli tokens app/styles/theme.ts --watch",
-    "template": "hygen"
-  },
-  "author": "Takaaki Inoue <takaaki12353491@gmail.com>",
-  "license": "UNLICENSED"
+  }
 }
