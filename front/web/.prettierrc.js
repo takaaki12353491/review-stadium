@@ -1,3 +1,1 @@
-module.exports = {
-  extends: "@review-stadium/prettier-config"
-}
+"@review-stadium/prettier-config";

@@ -12,5 +12,5 @@ module.exports = {
   arrowParens: "always",
   requirePragma: false,
   insertPragma: false,
-  proseWrap: "preserve"
-}
+  proseWrap: "preserve",
+};
