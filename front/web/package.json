@@ -18,7 +18,7 @@
     "style": "stylelint \"app/**/*.{css,scss}\"",
     "style:fix": "stylelint --fix \"app/**/*.{css,scss}\"",
     "template": "hygen",
-    "test": "jest --passWithNoTests",
+    "test": "jest --env=jsdom --verbose --passWithNoTests",
     "theme": "chakra-cli tokens app/styles/theme.ts",
     "theme:watch": "chakra-cli tokens app/styles/theme.ts --watch"
   },
