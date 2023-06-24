@@ -3,12 +3,8 @@ name: Rust Test
 on:
   push:
     paths:
-      - 'services/app/user/**'
-  pull_request:
-    branches:
-      - main
-    paths:
-      - 'services/app/user/**'
+      - ".github/workflows/service-user-ci.yml"
+      - "services/user/app/**"
 
 jobs:
   build_cache:
