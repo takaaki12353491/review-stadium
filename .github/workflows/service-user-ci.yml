@@ -14,7 +14,7 @@ defaults:
     working-directory: services/user/app
 
 jobs:
-  build:
+  ci:
     runs-on: ubuntu-latest
     env:
       RUSTC_FORCE_INCREMENTAL: 1
