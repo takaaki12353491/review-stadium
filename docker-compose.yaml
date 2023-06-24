@@ -20,8 +20,8 @@ services:
     env_file:
       - ./services/user/.env
     volumes:
-    - ./services/user/db/postgres/data:/var/lib/postgresql/data
-    - ./services/user/db/postgres/conf:/etc/postgresql
-    - ./services/user/db/postgres/entrypoint:/docker-entrypoint-initdb.d
+    - ./services/user/db/data:/var/lib/postgresql/data
+    - ./services/user/db/conf:/etc/postgresql
+    - ./services/user/db/entrypoint:/docker-entrypoint-initdb.d
     ports:
     - 54320:5432
