@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - ".github/workflows/service-user-ci.yml"
+      - ".github/actions/cache_cargo"
       - "Cargo.toml"
       - "Cargo.lock"
       - "services/user/app/**"
