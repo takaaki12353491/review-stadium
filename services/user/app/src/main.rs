@@ -24,7 +24,7 @@ async fn index_playground() -> Result<HttpResponse> {
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    dotenv::from_path("../../.env").unwrap();
+    dotenv::from_path("../.env").unwrap();
 
     env_logger::init();
 
