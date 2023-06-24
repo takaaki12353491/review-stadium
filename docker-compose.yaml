@@ -4,8 +4,29 @@ services:
     build:
       context: .
       dockerfile: ./front/web/Dockerfile
-    container_name: rs-web
+    container_name: web
     ports:
       - 3000:3000
     restart: always
     tty: true
+
+  user-db:
+    build:
+      context: .
+      dockerfile: ./services/user/db/Dockerfile
+    container_name: user-db
+    command: -c 'config_file=/etc/postgresql/postgresql.conf'
+    user: "1000:1000"
+    env_file:
+      - ./services/user/.env
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      TZ: 'Asia/Tokyo'
+    volumes:
+    - ./services/user/db/postgres/data:/var/lib/postgresql/data
+    - ./services/user/db/postgres/conf:/etc/postgresql
+    - ./services/user/db/postgres/entrypoint:/docker-entrypoint-initdb.d
+    ports:
+    - 54320:5432
