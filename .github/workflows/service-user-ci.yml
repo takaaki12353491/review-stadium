@@ -16,6 +16,8 @@ defaults:
 jobs:
   ci:
     runs-on: ubuntu-latest
+    env:
+      RUSTC_FORCE_INCREMENTAL: 0
     services:
       postgres:
         image: postgres:12
