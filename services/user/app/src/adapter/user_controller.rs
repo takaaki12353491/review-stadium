@@ -11,7 +11,7 @@ pub async fn graphql<UC, UR>(
 ) -> GraphQLResponse
 where
     UC: UserUseCase + Sync + Send,
-    UR: UserRepository,
+    UR: UserRepository + Send + Sync + 'static,
 {
     schema.execute(req.into_inner()).await.into()
 }
