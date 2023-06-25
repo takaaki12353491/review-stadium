@@ -5,7 +5,7 @@ use validator::Validate;
 pub struct User {
     pub model: Model,
     #[validate(length(min = 1, max = 20))]
-    pub user_id: String,
+    pub id_name: String,
     #[validate(length(min = 1, max = 255))]
     pub name: String,
     #[validate(email)]
@@ -13,10 +13,10 @@ pub struct User {
 }
 
 impl User {
-    pub fn new(user_id: String, name: String, email: String) -> Result<Self, DomainError> {
+    pub fn new(id_name: String, name: String, email: String) -> Result<Self, DomainError> {
         let user = Self {
             model: Model::new(),
-            user_id,
+            id_name,
             name,
             email: email.to_option(),
         };
@@ -33,7 +33,7 @@ mod tests {
         fn default() -> Self {
             Self {
                 model: Model::new(),
-                user_id: "user_id".to_string(),
+                id_name: "id_name".to_string(),
                 name: "name".to_string(),
                 email: Some("sample@example.com".to_string()),
             }
@@ -50,7 +50,7 @@ mod tests {
     impl User {
         fn from_user_id_length(len: usize) -> Result<Self, DomainError> {
             User {
-                user_id: "a".repeat(len),
+                id_name: "a".repeat(len),
                 ..User::default()
             }
             .into()

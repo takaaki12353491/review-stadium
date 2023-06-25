@@ -10,7 +10,7 @@ use sqlx::{PgConnection, PgPool};
 #[derive(sqlx::FromRow)]
 struct UserRow {
     id: String,
-    user_id: String,
+    id_name: String,
     name: String,
     email: String,
 }
@@ -21,7 +21,7 @@ impl From<UserRow> for User {
             model: Model {
                 id: ID::from(row.id),
             },
-            user_id: row.user_id,
+            id_name: row.id_name,
             name: row.name,
             email: row.email.to_option(),
         }
@@ -53,9 +53,9 @@ impl UserRepository for UserRepositoryImpl {
         Ok(user)
     }
 
-    async fn find_by_user_id(&self, user_id: &str) -> Result<Option<User>, DomainError> {
+    async fn find_by_id_name(&self, id_name: &str) -> Result<Option<User>, DomainError> {
         let mut conn = self.pool.acquire().await?;
-        let user = InternalUserRepository::find_by_user_id(user_id, &mut conn).await?;
+        let user = InternalUserRepository::find_by_id_name(id_name, &mut conn).await?;
         Ok(user)
     }
 }
@@ -65,9 +65,9 @@ pub(super) struct InternalUserRepository;
 
 impl InternalUserRepository {
     pub(super) async fn create(user: &User, conn: &mut PgConnection) -> Result<(), DomainError> {
-        sqlx::query("INSERT INTO users (id, user_id, name, email) VALUES ($1, $2, $3, $4)")
+        sqlx::query("INSERT INTO users (id, id_name, name, email) VALUES ($1, $2, $3, $4)")
             .bind(user.model.id.as_str())
-            .bind(&user.user_id)
+            .bind(&user.id_name)
             .bind(&user.name)
             .bind(&user.email)
             .execute(conn)
@@ -87,12 +87,12 @@ impl InternalUserRepository {
         }
     }
 
-    async fn find_by_user_id(
-        user_id: &str,
+    async fn find_by_id_name(
+        id_name: &str,
         conn: &mut PgConnection,
     ) -> Result<Option<User>, DomainError> {
-        let row: Option<UserRow> = sqlx::query_as("SELECT * FROM users WHERE user_id = $1")
-            .bind(user_id)
+        let row: Option<UserRow> = sqlx::query_as("SELECT * FROM users WHERE id_name = $1")
+            .bind(id_name)
             .fetch_optional(conn)
             .await?;
 

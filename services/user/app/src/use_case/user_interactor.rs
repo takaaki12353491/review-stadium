@@ -21,17 +21,17 @@ where
 {
     async fn register(
         &self,
-        user_id: String,
+        id_name: String,
         name: String,
         email: String,
     ) -> Result<User, UseCaseError> {
-        let user = User::new(user_id, name, email)?;
+        let user = User::new(id_name, name, email)?;
         self.user_repository.create(&user).await?;
         Ok(user)
     }
 
-    async fn get_by_user_id(&self, user_id: String) -> Result<Option<User>, UseCaseError> {
-        let user = self.user_repository.find_by_user_id(&user_id).await?;
+    async fn get_by_id_name(&self, id_name: String) -> Result<Option<User>, UseCaseError> {
+        let user = self.user_repository.find_by_id_name(&id_name).await?;
         Ok(user)
     }
 }
@@ -56,7 +56,7 @@ mod tests {
         let user_usecase = UserInteractor::new(mock_user_repository);
         let res = user_usecase
             .register(
-                String::from("user_id"),
+                String::from("id_name"),
                 String::from("name"),
                 String::from("sample@example.com"),
             )
@@ -77,7 +77,7 @@ mod tests {
         let user_usecase = UserInteractor::new(mock_user_repository);
         let res = user_usecase
             .register(
-                String::from("user_id"),
+                String::from("id_name"),
                 String::from("name"),
                 String::from("sample@example.com"),
             )
@@ -87,10 +87,10 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_get_by_user_id_success() {
-        let user_id = String::from("user_id");
+    async fn test_get_by_id_name_success() {
+        let id_name = String::from("id_name");
         let user = User::new(
-            user_id.clone(),
+            id_name.clone(),
             String::from("name"),
             String::from("sample@example.com"),
         )
@@ -99,48 +99,48 @@ mod tests {
 
         let mut mock_user_repository = MockUserRepository::new();
         mock_user_repository
-            .expect_find_by_user_id()
+            .expect_find_by_id_name()
             .times(1)
-            .with(eq(user_id.clone()))
+            .with(eq(id_name.clone()))
             .returning(move |_| Ok(Some(saved_user.clone())));
 
         let user_usecase = UserInteractor::new(mock_user_repository);
-        let res = user_usecase.get_by_user_id(user_id).await;
+        let res = user_usecase.get_by_id_name(id_name).await;
 
         assert_eq!(res.unwrap(), Some(user));
     }
 
     #[tokio::test]
-    async fn test_get_by_user_id_not_found() {
-        let user_id = String::from("user_id");
+    async fn test_get_by_id_name_not_found() {
+        let id_name = String::from("id_name");
 
         let mut mock_user_repository = MockUserRepository::new();
         mock_user_repository
-            .expect_find_by_user_id()
+            .expect_find_by_id_name()
             .times(1)
-            .with(eq(user_id.clone()))
+            .with(eq(id_name.clone()))
             .returning(|_| Ok(None));
 
         let user_usecase = UserInteractor::new(mock_user_repository);
-        let res = user_usecase.get_by_user_id(user_id).await;
+        let res = user_usecase.get_by_id_name(id_name).await;
 
         assert!(res.is_ok());
         assert_eq!(res.unwrap(), None);
     }
 
     #[tokio::test]
-    async fn test_get_by_user_id_failed() {
-        let user_id = String::from("user_id");
+    async fn test_get_by_id_name_failed() {
+        let id_name = String::from("id_name");
 
         let mut mock_user_repository = MockUserRepository::new();
         mock_user_repository
-            .expect_find_by_user_id()
+            .expect_find_by_id_name()
             .times(1)
-            .with(eq(user_id.clone()))
+            .with(eq(id_name.clone()))
             .returning(|_| Err(DomainError::RepositoryError(Error::msg("Database Error"))));
 
         let user_usecase = UserInteractor::new(mock_user_repository);
-        let res = user_usecase.get_by_user_id(user_id).await;
+        let res = user_usecase.get_by_id_name(id_name).await;
 
         assert!(res.is_err());
     }

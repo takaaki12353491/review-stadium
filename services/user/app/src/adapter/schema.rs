@@ -6,7 +6,7 @@ use common::error::AdapterError;
 #[derive(SimpleObject, Clone)]
 pub struct UserObject {
     id: String,
-    user_id: String,
+    id_name: String,
     name: String,
     email: String,
 }
@@ -15,7 +15,7 @@ impl From<User> for UserObject {
     fn from(user: User) -> Self {
         Self {
             id: user.model.id.into_string(),
-            user_id: user.user_id,
+            id_name: user.id_name,
             name: user.name,
             email: user.email.unwrap_or_default(),
         }
@@ -37,8 +37,8 @@ impl<UC> Query<UC>
 where
     UC: UserUseCase,
 {
-    async fn get_by_user_id(&self, user_id: String) -> Result<Option<UserObject>, AdapterError> {
-        let user = self.uc.get_by_user_id(user_id).await?;
+    async fn get_by_id_name(&self, id_name: String) -> Result<Option<UserObject>, AdapterError> {
+        let user = self.uc.get_by_id_name(id_name).await?;
         Ok(user.map(|user| user.into()))
     }
 }
@@ -60,11 +60,11 @@ where
 {
     async fn register(
         &self,
-        user_id: String,
+        id_name: String,
         name: String,
         email: String,
     ) -> Result<UserObject, AdapterError> {
-        let user = self.uc.register(user_id, name, email).await?;
+        let user = self.uc.register(id_name, name, email).await?;
         Ok(UserObject::from(user))
     }
 }

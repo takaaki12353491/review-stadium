@@ -6,10 +6,10 @@ use common::error::UseCaseError;
 pub trait UserUseCase: Send + Sync + 'static {
     async fn register(
         &self,
-        user_id: String,
+        id_name: String,
         name: String,
         email: String,
     ) -> Result<User, UseCaseError>;
 
-    async fn get_by_user_id(&self, user_id: String) -> Result<Option<User>, UseCaseError>;
+    async fn get_by_id_name(&self, id_name: String) -> Result<Option<User>, UseCaseError>;
 }
