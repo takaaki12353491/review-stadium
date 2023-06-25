@@ -43,7 +43,7 @@ impl UserRepositoryImpl {
 impl UserRepository for UserRepositoryImpl {
     async fn create(&self, id_name: &str, name: &str, email: &str) -> Result<User, DomainError> {
         let mut conn = self.pool.acquire().await?;
-        InternalUserRepository::create(&id_name, &name, &email, &mut conn).await
+        InternalUserRepository::create(id_name, name, email, &mut conn).await
     }
 
     async fn find_by_id(&self, id: &ID) -> Result<Option<User>, DomainError> {
