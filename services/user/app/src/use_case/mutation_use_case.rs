@@ -1,30 +1,20 @@
 use crate::domain::{user::User, user_repository::UserRepository};
-use async_trait::async_trait;
 use common::error::UseCaseError;
 
-#[async_trait]
-pub trait MutationUseCase: Send + Sync + 'static {
-    async fn register(&self, id_name: &str, name: &str, email: &str) -> Result<User, UseCaseError>;
-}
-
 #[derive(Debug, Clone)]
-pub struct MutationInteractor<UR: UserRepository> {
-    user_repository: UR,
+pub struct MutationUseCase<'a, UR: UserRepository> {
+    user_repository: &'a UR,
 }
 
-impl<UR: UserRepository> MutationInteractor<UR> {
-    pub fn new(user_repository: UR) -> Self {
+impl<'a, UR: UserRepository + 'a> MutationUseCase<'a, UR> {
+    pub fn new(user_repository: &'a UR) -> Self {
         Self { user_repository }
     }
 }
 
-#[async_trait]
-impl<UR> MutationUseCase for MutationInteractor<UR>
-where
-    UR: UserRepository,
-{
+impl<'a, UR: UserRepository + 'a> MutationUseCase<'a, UR> {
     async fn register(&self, id_name: &str, name: &str, email: &str) -> Result<User, UseCaseError> {
-        let user = self.user_repository.create(&id_name, &name, &email).await?;
+        let user = self.user_repository.create(id_name, name, email).await?;
         Ok(user)
     }
 }
@@ -52,7 +42,7 @@ mod tests {
                 )
             });
 
-        let user_usecase = MutationInteractor::new(mock_user_repository);
+        let user_usecase = MutationUseCase::new(&mock_user_repository);
         let res = user_usecase
             .register(
                 &String::from("id_name"),
@@ -73,7 +63,7 @@ mod tests {
             .with(always(), always(), always())
             .returning(|_, _, _| Err(DomainError::RepositoryError(Error::msg("Database Error"))));
 
-        let user_usecase = MutationInteractor::new(mock_user_repository);
+        let user_usecase = MutationUseCase::new(&mock_user_repository);
         let res = user_usecase
             .register(
                 &String::from("id_name"),
