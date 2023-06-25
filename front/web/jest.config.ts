@@ -7,9 +7,12 @@ export default async (): Promise<Config> => {
     roots: ["<rootDir>/app/"],
     testEnvironment: "jsdom",
     testPathIgnorePatterns: [
-      "/node_modules/",
+      "<rootDir>/node_modules/",
       "<rootDir>/src/__tests__/utils.tsx",
     ],
+    moduleNameMapper: {
+      "\\.(css|scss)$": "<rootDir>/node_modules/jest-css-modules",
+    },
     transform: {
       "^.+\\.(ts|tsx)$": ["babel-jest", { presets: ["next/babel"] }],
     },

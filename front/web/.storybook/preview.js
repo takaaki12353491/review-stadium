@@ -1,6 +1,6 @@
 import * as nextImage from "next/image";
 import { RouterContext } from "next/dist/shared/lib/router-context";
-import "../app/styles/globals.scss";
+import "../app/_styles/globals.scss";
 
 Object.defineProperty(nextImage, "default", {
   configurable: true,

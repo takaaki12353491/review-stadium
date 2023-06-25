@@ -10,7 +10,7 @@ use sqlx::{PgConnection, PgPool};
 #[derive(sqlx::FromRow)]
 struct UserRow {
     id: String,
-    user_id: String,
+    id_name: String,
     name: String,
     email: String,
 }
@@ -21,7 +21,7 @@ impl From<UserRow> for User {
             model: Model {
                 id: ID::from(row.id),
             },
-            user_id: row.user_id,
+            id_name: row.id_name,
             name: row.name,
             email: row.email.to_option(),
         }
@@ -41,10 +41,9 @@ impl UserRepositoryImpl {
 
 #[async_trait]
 impl UserRepository for UserRepositoryImpl {
-    async fn create(&self, user: &User) -> Result<(), DomainError> {
+    async fn create(&self, id_name: &str, name: &str, email: &str) -> Result<User, DomainError> {
         let mut conn = self.pool.acquire().await?;
-        let result = InternalUserRepository::create(user, &mut conn).await?;
-        Ok(result)
+        InternalUserRepository::create(id_name, name, email, &mut conn).await
     }
 
     async fn find_by_id(&self, id: &ID) -> Result<Option<User>, DomainError> {
@@ -53,9 +52,9 @@ impl UserRepository for UserRepositoryImpl {
         Ok(user)
     }
 
-    async fn find_by_user_id(&self, user_id: &str) -> Result<Option<User>, DomainError> {
+    async fn find_by_id_name(&self, id_name: &str) -> Result<Option<User>, DomainError> {
         let mut conn = self.pool.acquire().await?;
-        let user = InternalUserRepository::find_by_user_id(user_id, &mut conn).await?;
+        let user = InternalUserRepository::find_by_id_name(id_name, &mut conn).await?;
         Ok(user)
     }
 }
@@ -64,15 +63,21 @@ impl UserRepository for UserRepositoryImpl {
 pub(super) struct InternalUserRepository;
 
 impl InternalUserRepository {
-    pub(super) async fn create(user: &User, conn: &mut PgConnection) -> Result<(), DomainError> {
-        sqlx::query("INSERT INTO users (id, user_id, name, email) VALUES ($1, $2, $3, $4)")
-            .bind(user.model.id.as_str())
-            .bind(&user.user_id)
-            .bind(&user.name)
-            .bind(&user.email)
-            .execute(conn)
-            .await?;
-        Ok(())
+    pub(super) async fn create(
+        id_name: &str,
+        name: &str,
+        email: &str,
+        conn: &mut PgConnection,
+    ) -> Result<User, DomainError> {
+        let user_row: UserRow = sqlx::query_as(
+            "INSERT INTO users (id_name, name, email) VALUES ($1, $2, $3) RETURNING *",
+        )
+        .bind(id_name)
+        .bind(name)
+        .bind(email)
+        .fetch_one(conn)
+        .await?;
+        Ok(User::from(user_row))
     }
 
     async fn find_by_id(id: &ID, conn: &mut PgConnection) -> Result<Option<User>, DomainError> {
@@ -87,12 +92,12 @@ impl InternalUserRepository {
         }
     }
 
-    async fn find_by_user_id(
-        user_id: &str,
+    async fn find_by_id_name(
+        id_name: &str,
         conn: &mut PgConnection,
     ) -> Result<Option<User>, DomainError> {
-        let row: Option<UserRow> = sqlx::query_as("SELECT * FROM users WHERE user_id = $1")
-            .bind(user_id)
+        let row: Option<UserRow> = sqlx::query_as("SELECT * FROM users WHERE id_name = $1")
+            .bind(id_name)
             .fetch_optional(conn)
             .await?;
 

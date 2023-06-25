@@ -1,5 +1,4 @@
 const path = require("path");
-const rootPath = path.resolve(__dirname, "../app/");
 
 /** @type { import('@storybook/react-webpack5').StorybookConfig } */
 const config = {
@@ -28,7 +27,7 @@ const config = {
   },
   staticDirs: ["../public"],
   webpackFinal: async (config) => {
-    config.resolve.alias["@"] = rootPath;
+    config.resolve.alias["@"] = path.resolve(__dirname, "../");
     config.module.rules.push({
       test: /\.scss$/,
       use: [

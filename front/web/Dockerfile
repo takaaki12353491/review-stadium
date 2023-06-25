@@ -3,7 +3,7 @@ FROM node:18-alpine AS base
 WORKDIR /app
 
 # Install pnpm
-RUN npm install -g pnpm@8.5
+RUN npm install -g pnpm
 
 # ---- Dependencies ----
 FROM base AS dependencies
