@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'services/app/user/**'
+      - './.github/workflows/user_ci.yml'
   pull_request:
     branches:
       - main
