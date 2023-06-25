@@ -17,7 +17,7 @@ jobs:
   ci:
     runs-on: ubuntu-latest
     env:
-      RUSTC_FORCE_INCREMENTAL: 0
+      RUSTC_FORCE_INCREMENTAL: 1
     services:
       postgres:
         image: postgres:12
@@ -36,9 +36,6 @@ jobs:
           rustup set profile default
           rustup self update
           rustup update
-
-      - name: Clean Project
-        run: cargo clean
 
       - name: build
         run: cargo build
