@@ -13,6 +13,7 @@ pub struct User {
 }
 
 impl User {
+    #[allow(dead_code)]
     pub fn new(id_name: String, name: String, email: String) -> Result<Self, DomainError> {
         let user = Self {
             model: Model::new(),

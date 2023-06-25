@@ -25,8 +25,7 @@ where
         name: String,
         email: String,
     ) -> Result<User, UseCaseError> {
-        let user = User::new(id_name, name, email)?;
-        self.user_repository.create(&user).await?;
+        let user = self.user_repository.create(&id_name, &name, &email).await?;
         Ok(user)
     }
 
@@ -50,8 +49,14 @@ mod tests {
         mock_user_repository
             .expect_create()
             .times(1)
-            .with(always())
-            .returning(|_| Ok(()));
+            .with(always(), always(), always())
+            .returning(|_, _, _| {
+                User::new(
+                    String::from("id_name"),
+                    String::from("name"),
+                    String::from("sample@example.com"),
+                )
+            });
 
         let user_usecase = UserInteractor::new(mock_user_repository);
         let res = user_usecase
@@ -71,8 +76,8 @@ mod tests {
         mock_user_repository
             .expect_create()
             .times(1)
-            .with(always())
-            .returning(|_| Err(DomainError::RepositoryError(Error::msg("Database Error"))));
+            .with(always(), always(), always())
+            .returning(|_, _, _| Err(DomainError::RepositoryError(Error::msg("Database Error"))));
 
         let user_usecase = UserInteractor::new(mock_user_repository);
         let res = user_usecase
