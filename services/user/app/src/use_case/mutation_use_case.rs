@@ -2,17 +2,17 @@ use crate::domain::{user::User, user_repository::UserRepository};
 use common::error::UseCaseError;
 
 #[derive(Debug, Clone)]
-pub struct MutationUseCase<'a, UR: UserRepository> {
-    user_repository: &'a UR,
+pub struct MutationUseCase<UR: UserRepository> {
+    user_repository: UR,
 }
 
-impl<'a, UR: UserRepository + 'a> MutationUseCase<'a, UR> {
-    pub fn new(user_repository: &'a UR) -> Self {
+impl<UR: UserRepository> MutationUseCase<UR> {
+    pub fn new(user_repository: UR) -> Self {
         Self { user_repository }
     }
 }
 
-impl<'a, UR: UserRepository + 'a> MutationUseCase<'a, UR> {
+impl<UR: UserRepository> MutationUseCase<UR> {
     pub async fn register(
         &self,
         id_name: &str,
@@ -47,7 +47,7 @@ mod tests {
                 )
             });
 
-        let user_usecase = MutationUseCase::new(&mock_user_repository);
+        let user_usecase = MutationUseCase::new(mock_user_repository);
         let res = user_usecase
             .register(
                 &String::from("id_name"),
@@ -68,7 +68,7 @@ mod tests {
             .with(always(), always(), always())
             .returning(|_, _, _| Err(DomainError::RepositoryError(Error::msg("Database Error"))));
 
-        let user_usecase = MutationUseCase::new(&mock_user_repository);
+        let user_usecase = MutationUseCase::new(mock_user_repository);
         let res = user_usecase
             .register(
                 &String::from("id_name"),

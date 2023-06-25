@@ -42,29 +42,3 @@ where
         Ok(user.map(|user| user.into()))
     }
 }
-
-pub struct Mutation<UC> {
-    uc: UC,
-}
-
-impl<UC> Mutation<UC> {
-    pub fn new(uc: UC) -> Self {
-        Self { uc }
-    }
-}
-
-#[Object]
-impl<UC> Mutation<UC>
-where
-    UC: UserUseCase,
-{
-    async fn register(
-        &self,
-        id_name: String,
-        name: String,
-        email: String,
-    ) -> Result<UserObject, AdapterError> {
-        let user = self.uc.register(id_name, name, email).await?;
-        Ok(UserObject::from(user))
-    }
-}

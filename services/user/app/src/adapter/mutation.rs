@@ -4,18 +4,18 @@ use crate::use_case::mutation_use_case::MutationUseCase;
 use async_graphql::Object;
 use common::error::AdapterError;
 
-pub struct Mutation<'a, UR: UserRepository> {
-    uc: MutationUseCase<'a, UR>,
+pub struct Mutation<UR: UserRepository> {
+    uc: MutationUseCase<UR>,
 }
 
-impl<'a, UR: UserRepository> Mutation<'a, UR> {
-    pub fn new(uc: MutationUseCase<'a, UR>) -> Self {
+impl<UR: UserRepository> Mutation<UR> {
+    pub fn new(uc: MutationUseCase<UR>) -> Self {
         Self { uc }
     }
 }
 
 #[Object]
-impl<'a, UR> Mutation<'a, UR>
+impl<UR> Mutation<UR>
 where
     UR: UserRepository,
 {
