@@ -13,7 +13,12 @@ impl<'a, UR: UserRepository + 'a> MutationUseCase<'a, UR> {
 }
 
 impl<'a, UR: UserRepository + 'a> MutationUseCase<'a, UR> {
-    async fn register(&self, id_name: &str, name: &str, email: &str) -> Result<User, UseCaseError> {
+    pub async fn register(
+        &self,
+        id_name: &str,
+        name: &str,
+        email: &str,
+    ) -> Result<User, UseCaseError> {
         let user = self.user_repository.create(id_name, name, email).await?;
         Ok(user)
     }
