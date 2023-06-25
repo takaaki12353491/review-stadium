@@ -4,12 +4,7 @@ use common::error::UseCaseError;
 
 #[async_trait]
 pub trait MutationUseCase: Send + Sync + 'static {
-    async fn register(
-        &self,
-        id_name: &String,
-        name: &String,
-        email: &String,
-    ) -> Result<User, UseCaseError>;
+    async fn register(&self, id_name: &str, name: &str, email: &str) -> Result<User, UseCaseError>;
 }
 
 #[derive(Debug, Clone)]
@@ -28,12 +23,7 @@ impl<UR> MutationUseCase for MutationInteractor<UR>
 where
     UR: UserRepository,
 {
-    async fn register(
-        &self,
-        id_name: &String,
-        name: &String,
-        email: &String,
-    ) -> Result<User, UseCaseError> {
+    async fn register(&self, id_name: &str, name: &str, email: &str) -> Result<User, UseCaseError> {
         let user = self.user_repository.create(&id_name, &name, &email).await?;
         Ok(user)
     }

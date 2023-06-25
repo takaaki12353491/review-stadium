@@ -41,12 +41,7 @@ impl UserRepositoryImpl {
 
 #[async_trait]
 impl UserRepository for UserRepositoryImpl {
-    async fn create(
-        &self,
-        id_name: &String,
-        name: &String,
-        email: &String,
-    ) -> Result<User, DomainError> {
+    async fn create(&self, id_name: &str, name: &str, email: &str) -> Result<User, DomainError> {
         let mut conn = self.pool.acquire().await?;
         InternalUserRepository::create(&id_name, &name, &email, &mut conn).await
     }
@@ -69,9 +64,9 @@ pub(super) struct InternalUserRepository;
 
 impl InternalUserRepository {
     pub(super) async fn create(
-        id_name: &String,
-        name: &String,
-        email: &String,
+        id_name: &str,
+        name: &str,
+        email: &str,
         conn: &mut PgConnection,
     ) -> Result<User, DomainError> {
         let user_row: UserRow = sqlx::query_as(
