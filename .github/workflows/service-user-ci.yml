@@ -29,16 +29,18 @@ jobs:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/cache_cargo
 
+      - name: Install Rust toolchain
+        run: |
+          rustup set profile default
+          rustup self update
+          rustup update
+
       - name: build
         run: cargo build
 
-      - name: rustfmt install
-        run: rustup component add rustfmt
       - name: fmt
         run: cargo fmt --all -- --check
 
-      - name: clippy install
-        run: rustup component add clippy
       - name: clippy
         run: cargo clippy --all-targets --all-features -- -D warnings
 
