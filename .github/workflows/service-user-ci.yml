@@ -37,6 +37,9 @@ jobs:
           rustup self update
           rustup update
 
+      - name: Clean Project
+        run: cargo clean
+
       - name: build
         run: cargo build
 
