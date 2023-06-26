@@ -19,6 +19,11 @@ services:
     user: "1000:1000"
     env_file:
       - ./services/user/.env
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      TZ: 'Asia/Tokyo'
     volumes:
     - ./services/user/db/data:/var/lib/postgresql/data
     - ./services/user/db/conf:/etc/postgresql
