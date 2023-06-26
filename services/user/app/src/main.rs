@@ -13,6 +13,7 @@ use config::DB_CONFIG;
 use infra::user_repository::UserRepositoryImpl;
 use log::*;
 use sqlx::postgres::PgPoolOptions;
+use std::sync::Arc;
 use use_case::{mutation_use_case::MutationUseCase, query_use_case::QueryUseCase};
 
 async fn index_playground() -> Result<HttpResponse> {
@@ -35,9 +36,9 @@ async fn main() -> std::io::Result<()> {
         .await
         .unwrap();
 
-    let user_repository = UserRepositoryImpl::new(pool);
-    let query_use_case = QueryUseCase::new(user_repository.clone());
-    let mutation_use_case = MutationUseCase::new(user_repository.clone());
+    let user_repository = Arc::new(UserRepositoryImpl::new(pool));
+    let query_use_case = QueryUseCase::new(Arc::clone(&user_repository));
+    let mutation_use_case = MutationUseCase::new(Arc::clone(&user_repository));
 
     let query = Query::new(query_use_case);
     let mutation = Mutation::new(mutation_use_case);

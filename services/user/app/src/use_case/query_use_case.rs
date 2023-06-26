@@ -1,13 +1,14 @@
 use crate::domain::{user::User, user_repository::UserRepository};
 use common::error::UseCaseError;
+use std::sync::Arc;
 
 #[derive(Debug, Clone)]
 pub struct QueryUseCase<UR: UserRepository> {
-    user_repository: UR,
+    user_repository: Arc<UR>,
 }
 
 impl<UR: UserRepository> QueryUseCase<UR> {
-    pub fn new(user_repository: UR) -> Self {
+    pub fn new(user_repository: Arc<UR>) -> Self {
         Self { user_repository }
     }
 }
@@ -45,7 +46,7 @@ mod tests {
             .with(eq(id_name.clone()))
             .returning(move |_| Ok(Some(saved_user.clone())));
 
-        let user_usecase = QueryUseCase::new(mock_user_repository);
+        let user_usecase = QueryUseCase::new(Arc::new(mock_user_repository));
         let res = user_usecase.get_by_id_name(&id_name).await;
 
         assert_eq!(res.unwrap(), Some(user));
@@ -62,7 +63,7 @@ mod tests {
             .with(eq(id_name.clone()))
             .returning(|_| Ok(None));
 
-        let user_usecase = QueryUseCase::new(mock_user_repository);
+        let user_usecase = QueryUseCase::new(Arc::new(mock_user_repository));
         let res = user_usecase.get_by_id_name(&id_name).await;
 
         assert!(res.is_ok());
@@ -80,7 +81,7 @@ mod tests {
             .with(eq(id_name.clone()))
             .returning(|_| Err(DomainError::RepositoryError(Error::msg("Database Error"))));
 
-        let user_usecase = QueryUseCase::new(mock_user_repository);
+        let user_usecase = QueryUseCase::new(Arc::new(mock_user_repository));
         let res = user_usecase.get_by_id_name(&id_name).await;
 
         assert!(res.is_err());

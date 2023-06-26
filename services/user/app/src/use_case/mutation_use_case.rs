@@ -1,13 +1,14 @@
 use crate::domain::{user::User, user_repository::UserRepository};
 use common::error::UseCaseError;
+use std::sync::Arc;
 
 #[derive(Debug, Clone)]
 pub struct MutationUseCase<UR: UserRepository> {
-    user_repository: UR,
+    user_repository: Arc<UR>,
 }
 
 impl<UR: UserRepository> MutationUseCase<UR> {
-    pub fn new(user_repository: UR) -> Self {
+    pub fn new(user_repository: Arc<UR>) -> Self {
         Self { user_repository }
     }
 }
@@ -47,7 +48,7 @@ mod tests {
                 )
             });
 
-        let user_usecase = MutationUseCase::new(mock_user_repository);
+        let user_usecase = MutationUseCase::new(Arc::new(mock_user_repository));
         let res = user_usecase
             .register(
                 &String::from("id_name"),
@@ -68,7 +69,7 @@ mod tests {
             .with(always(), always(), always())
             .returning(|_, _, _| Err(DomainError::RepositoryError(Error::msg("Database Error"))));
 
-        let user_usecase = MutationUseCase::new(mock_user_repository);
+        let user_usecase = MutationUseCase::new(Arc::new(mock_user_repository));
         let res = user_usecase
             .register(
                 &String::from("id_name"),
