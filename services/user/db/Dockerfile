@@ -1,5 +1,1 @@
 FROM postgres:15.2-alpine
-
-ENV POSTGRES_PASSWORD=postgres
-
-EXPOSE 54320
