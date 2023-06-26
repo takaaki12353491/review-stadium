@@ -14,10 +14,40 @@ defaults:
     working-directory: services/user/app
 
 jobs:
-  ci:
+  build:
     runs-on: ubuntu-latest
     env:
-      RUSTC_FORCE_INCREMENTAL: 0
+      RUSTC_FORCE_INCREMENTAL: 1
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/cache_cargo
+      - name: build
+        run: cargo build
+
+  fmt:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v3
+      - run: rustup component add rustfmt
+      - uses: ./.github/actions/cache_cargo
+      - name: fmt
+        run: cargo fmt --all -- --check
+
+  clippy:
+    runs-on: ubuntu-latest
+    env:
+      RUSTC_FORCE_INCREMENTAL: 1
+    needs: build
+    steps:
+      - uses: actions/checkout@v3
+      - run: rustup component add clippy
+      - uses: ./.github/actions/cache_cargo
+      - name: clippy
+        run: cargo clippy --all-targets --all-features -- -D warnings
+
+  test:
+    runs-on: ubuntu-latest
     services:
       postgres:
         image: postgres:12
@@ -27,26 +57,13 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+    env:
+      RUSTC_FORCE_INCREMENTAL: 1
+    needs: build
     steps:
-      - uses: actions/checkout@v3
-      - uses: ./.github/actions/cache_cargo
-
-      - name: Install Rust toolchain
-        run: |
-          rustup set profile default
-          rustup self update
-          rustup update
-
-      - name: build
-        run: cargo build
-
-      - name: fmt
-        run: cargo fmt --all -- --check
-
-      - name: clippy
-        run: cargo clippy --all-targets --all-features -- -D warnings
-
       - name: create database for test
         run: PGPASSWORD=postgres psql -h localhost -U postgres -c "CREATE DATABASE test"
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/cache_cargo
       - name: test
         run: cargo test --all -- --nocapture
