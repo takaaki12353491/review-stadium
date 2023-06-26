@@ -1,7 +1,5 @@
 use crate::domain::user::User;
-use crate::use_case::user_use_case::UserUseCase;
-use async_graphql::{Object, SimpleObject};
-use common::error::AdapterError;
+use async_graphql::SimpleObject;
 
 #[derive(SimpleObject, Clone)]
 pub struct UserObject {
@@ -19,26 +17,5 @@ impl From<User> for UserObject {
             name: user.name,
             email: user.email.unwrap_or_default(),
         }
-    }
-}
-
-pub struct Query<UC> {
-    uc: UC,
-}
-
-impl<UC> Query<UC> {
-    pub fn new(uc: UC) -> Self {
-        Self { uc }
-    }
-}
-
-#[Object]
-impl<UC> Query<UC>
-where
-    UC: UserUseCase,
-{
-    async fn get_by_id_name(&self, id_name: String) -> Result<Option<UserObject>, AdapterError> {
-        let user = self.uc.get_by_id_name(id_name).await?;
-        Ok(user.map(|user| user.into()))
     }
 }
