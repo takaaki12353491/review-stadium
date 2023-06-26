@@ -26,5 +26,8 @@ sqlx = { version = "0.6.2", features = [
 ] }
 thiserror = "1.0.39"
 tokio = { version = "1.26.0", features = ["full"] }
+tracing = "0.1.37"
+tracing-actix-web = "0.7.5"
+tracing-subscriber = "0.3.17"
 ulid = "1.0.0"
 validator = { version = "0.16.0", features = ["derive"] }
