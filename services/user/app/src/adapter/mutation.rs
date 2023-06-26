@@ -1,23 +1,22 @@
 use super::schema::UserObject;
-use crate::domain::user_repository::UserRepository;
 use crate::use_case::mutation_use_case::MutationUseCase;
 use async_graphql::Object;
 use common::error::AdapterError;
 
-pub struct Mutation<UR: UserRepository> {
-    uc: MutationUseCase<UR>,
+pub struct Mutation<MUC: MutationUseCase> {
+    uc: MUC,
 }
 
-impl<UR: UserRepository> Mutation<UR> {
-    pub fn new(uc: MutationUseCase<UR>) -> Self {
+impl<MUC: MutationUseCase> Mutation<MUC> {
+    pub fn new(uc: MUC) -> Self {
         Self { uc }
     }
 }
 
 #[Object]
-impl<UR> Mutation<UR>
+impl<MUC> Mutation<MUC>
 where
-    UR: UserRepository,
+    MUC: MutationUseCase,
 {
     async fn register(
         &self,

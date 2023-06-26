@@ -13,7 +13,7 @@ use config::DB_CONFIG;
 use infra::user_repository::UserRepositoryImpl;
 use log::*;
 use sqlx::postgres::PgPoolOptions;
-use use_case::{mutation_use_case::MutationUseCase, user_interactor::UserInteractor};
+use use_case::{mutation_use_case::MutationInteractor, user_interactor::UserInteractor};
 
 async fn index_playground() -> Result<HttpResponse> {
     let source = playground_source(GraphQLPlaygroundConfig::new("/").subscription_endpoint("/"));
@@ -36,7 +36,7 @@ async fn main() -> std::io::Result<()> {
         .unwrap();
 
     let user_repository = UserRepositoryImpl::new(pool);
-    let mutation_use_case = MutationUseCase::new(user_repository.clone());
+    let mutation_use_case = MutationInteractor::new(user_repository.clone());
     let user_usecase = UserInteractor::new(user_repository);
 
     let query = Query::new(user_usecase);
@@ -52,7 +52,7 @@ async fn main() -> std::io::Result<()> {
             .service(web::resource("/").guard(guard::Post()).to(
                 adapter::user_controller::graphql::<
                     UserInteractor<UserRepositoryImpl>,
-                    UserRepositoryImpl,
+                    MutationInteractor<UserRepositoryImpl>,
                 >,
             ))
             .service(web::resource("/").guard(guard::Get()).to(index_playground))
