@@ -1,7 +1,9 @@
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
 CREATE SCHEMA IF NOT EXISTS "user";
 
 CREATE TABLE IF NOT EXISTS "user"."users" (
-  "id" SERIAL PRIMARY KEY,
+  "id" UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   "id_name" VARCHAR(20) NOT NULL,
   "name" VARCHAR(255) NOT NULL,
   "email" VARCHAR(255) NOT NULL UNIQUE,
@@ -12,8 +14,8 @@ CREATE TABLE IF NOT EXISTS "user"."users" (
 );
 
 CREATE TABLE IF NOT EXISTS "user"."accounts" (
-  "id" SERIAL PRIMARY KEY,
-  "user_id" INTEGER NOT NULL REFERENCES "user"."users"("id"),
+  "id" UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  "user_id" UUID NOT NULL REFERENCES "user"."users"("id"),
   "type" VARCHAR(255) NOT NULL,
   "provider" VARCHAR(255) NOT NULL,
   "provider_account_id" VARCHAR(255) NOT NULL,
@@ -29,16 +31,16 @@ CREATE TABLE IF NOT EXISTS "user"."accounts" (
 );
 
 CREATE TABLE IF NOT EXISTS "user"."sessions" (
-  "id" SERIAL PRIMARY KEY,
+  "id" UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   "expires" TIMESTAMP NOT NULL,
   "session_token" VARCHAR(255) NOT NULL,
-  "user_id" INTEGER NOT NULL REFERENCES "user"."users"("id"),
+  "user_id" UUID NOT NULL REFERENCES "user"."users"("id"),
   "created_at" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   "updated_at" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS "user"."verification_tokens" (
-  "id" SERIAL PRIMARY KEY,
+  "id" UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   "identifier" VARCHAR(255) NOT NULL,
   "token" VARCHAR(255) NOT NULL,
   "expire" TIMESTAMP NOT NULL,
