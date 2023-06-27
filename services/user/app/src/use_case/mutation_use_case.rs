@@ -1,6 +1,7 @@
 use crate::domain::{user::User, user_repository::UserRepository};
 use common::error::UseCaseError;
 use std::sync::Arc;
+use tracing::*;
 
 #[derive(Debug, Clone)]
 pub struct MutationUseCase<UR: UserRepository> {
@@ -14,12 +15,14 @@ impl<UR: UserRepository> MutationUseCase<UR> {
 }
 
 impl<UR: UserRepository> MutationUseCase<UR> {
+    #[instrument]
     pub async fn register(
         &self,
         id_name: &str,
         name: &str,
         email: &str,
     ) -> Result<User, UseCaseError> {
+        error!("check");
         let user = self.user_repository.create(id_name, name, email).await?;
         Ok(user)
     }
