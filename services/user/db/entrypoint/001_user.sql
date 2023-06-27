@@ -51,6 +51,6 @@ CREATE TABLE IF NOT EXISTS "user"."verification_tokens" (
 CREATE UNIQUE INDEX IF NOT EXISTS "email" ON "user"."users"("email");
 CREATE INDEX IF NOT EXISTS "user_id" ON "user"."accounts"("user_id");
 CREATE INDEX IF NOT EXISTS "provider_account_id" ON "user"."accounts"("provider_account_id");
+CREATE UNIQUE INDEX IF NOT EXISTS "access_token" ON "user"."accounts"("access_token");
 CREATE UNIQUE INDEX IF NOT EXISTS "session_token" ON "user"."sessions"("session_token");
-CREATE UNIQUE INDEX IF NOT EXISTS "access_token" ON "user"."sessions"("access_token");
 CREATE UNIQUE INDEX IF NOT EXISTS "token" ON "user"."verification_tokens"("token");
