@@ -22,7 +22,6 @@ impl<UR: UserRepository> MutationUseCase<UR> {
         name: &str,
         email: &str,
     ) -> Result<User, UseCaseError> {
-        error!("check");
         let user = self.user_repository.create(id_name, name, email).await?;
         Ok(user)
     }
