@@ -5,9 +5,8 @@ mod infra;
 mod use_case;
 
 use actix_web::web::Data;
-use actix_web::{guard, web, App, HttpResponse, HttpServer, Result};
+use actix_web::{guard, web, App, HttpServer};
 use adapter::{mutation::Mutation, query::Query};
-use async_graphql::http::{playground_source, GraphQLPlaygroundConfig};
 use async_graphql::{EmptySubscription, Schema};
 use config::DB_CONFIG;
 use infra::user_repository::UserRepositoryImpl;
@@ -21,13 +20,6 @@ use tracing_actix_web::TracingLogger;
 use tracing_bunyan_formatter::{BunyanFormattingLayer, JsonStorageLayer};
 use tracing_subscriber::{layer::SubscriberExt, EnvFilter, Registry};
 use use_case::{mutation_use_case::MutationUseCase, query_use_case::QueryUseCase};
-
-async fn index_playground() -> Result<HttpResponse> {
-    let source = playground_source(GraphQLPlaygroundConfig::new("/").subscription_endpoint("/"));
-    Ok(HttpResponse::Ok()
-        .content_type("text/html; charset=utf-8")
-        .body(source))
-}
 
 fn init_telemetry() {
     let app_name = "user-app";
@@ -78,8 +70,6 @@ async fn main() -> std::io::Result<()> {
     let mutation = Mutation::new(mutation_use_case);
     let schema = Schema::build(query, mutation, EmptySubscription).finish();
 
-    info!("Playground: http://localhost:8080");
-
     HttpServer::new(move || {
         App::new()
             .app_data(Data::new(schema.clone()))
@@ -89,7 +79,6 @@ async fn main() -> std::io::Result<()> {
                     .guard(guard::Post())
                     .to(adapter::user_controller::graphql::<UserRepositoryImpl>),
             )
-            .service(web::resource("/").guard(guard::Get()).to(index_playground))
     })
     .bind(("localhost", 8080))?
     .run()
