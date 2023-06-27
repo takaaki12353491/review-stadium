@@ -11,12 +11,12 @@ use async_graphql::http::{playground_source, GraphQLPlaygroundConfig};
 use async_graphql::{EmptySubscription, Schema};
 use config::DB_CONFIG;
 use infra::user_repository::UserRepositoryImpl;
-use log::*;
 use opentelemetry::{
     global, runtime::TokioCurrentThread, sdk::propagation::TraceContextPropagator,
 };
 use sqlx::postgres::PgPoolOptions;
 use std::sync::Arc;
+use tracing::*;
 use tracing_actix_web::TracingLogger;
 use tracing_bunyan_formatter::{BunyanFormattingLayer, JsonStorageLayer};
 use tracing_subscriber::{layer::SubscriberExt, EnvFilter, Registry};
