@@ -60,6 +60,14 @@ async fn main() -> std::io::Result<()> {
         .max_connections(5)
         .connect(&db_url)
         .await
+        .and_then(|pool| {
+            info!("Successfully connected to the database");
+            Ok(pool)
+        })
+        .map_err(|e| {
+            error!("Failed to connect to the database: {}", e);
+            e
+        })
         .unwrap();
 
     let user_repository = Arc::new(UserRepositoryImpl::new(pool));
