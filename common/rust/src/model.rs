@@ -1,31 +1,23 @@
-use ulid::Ulid;
+use uuid::Uuid;
 use validator::Validate;
 
-#[derive(Debug, Clone, PartialEq, Eq, Validate, Default)]
-pub struct ID {
-    #[validate(length(min = 1))]
-    value: String,
-}
+#[derive(Debug, Clone, PartialEq, Eq, Default)]
+pub struct ID(Uuid);
 
 impl ID {
     pub fn new() -> Self {
-        Self {
-            value: Ulid::new().to_string(),
-        }
+        Self(Uuid::new_v4())
     }
 
-    pub fn as_str(&self) -> &str {
-        &self.value
-    }
-
-    pub fn into_string(self) -> String {
-        self.value
+    // Uuidを文字列に変換します
+    pub fn as_str(&self) -> String {
+        self.0.to_string()
     }
 }
 
-impl From<String> for ID {
-    fn from(value: String) -> Self {
-        ID { value }
+impl From<Uuid> for ID {
+    fn from(value: Uuid) -> Self {
+        ID(value)
     }
 }
 
