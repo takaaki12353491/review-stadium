@@ -83,7 +83,7 @@ async fn main() -> std::io::Result<()> {
             .app_data(Data::new(schema.clone()))
             .wrap(TracingLogger::default())
             .service(
-                web::resource("/")
+                web::resource("/api/graphql")
                     .guard(guard::Post())
                     .to(adapter::user_controller::graphql::<UserRepositoryImpl>),
             )
