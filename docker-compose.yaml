@@ -25,7 +25,7 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
       TZ: 'Asia/Tokyo'
     volumes:
-    # - ./services/user/db/data:/var/lib/postgresql/data
+    - ./services/user/db/data:/var/lib/postgresql/data
     - ./services/user/db/conf:/etc/postgresql
     - ./services/user/db/entrypoint:/docker-entrypoint-initdb.d
     ports:
