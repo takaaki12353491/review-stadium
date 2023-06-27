@@ -4,9 +4,8 @@ mod domain;
 mod infra;
 mod use_case;
 
-use actix_web::web::Data;
-use actix_web::{guard, web, App, HttpServer};
-use adapter::{mutation::Mutation, query::Query};
+use actix_web::{guard, web, web::Data, App, HttpServer};
+use adapter::{mutation::Mutation, query::Query, user_controller::graphql};
 use async_graphql::{EmptySubscription, Schema};
 use config::DB_CONFIG;
 use infra::user_repository::UserRepositoryImpl;
@@ -85,7 +84,7 @@ async fn main() -> std::io::Result<()> {
             .service(
                 web::resource("/api/graphql")
                     .guard(guard::Post())
-                    .to(adapter::user_controller::graphql::<UserRepositoryImpl>),
+                    .to(graphql::<UserRepositoryImpl>),
             )
     })
     .bind(("localhost", 8080))?
