@@ -63,7 +63,7 @@ impl UserRepository for UserRepositoryImpl {
 pub(super) struct InternalUserRepository;
 
 impl InternalUserRepository {
-    pub(super) async fn create(
+    async fn create(
         id_name: &str,
         name: &str,
         email: &str,
